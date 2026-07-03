@@ -1,0 +1,53 @@
+/* Movik — Color Tokens */
+/* Source: https://movik.us/ui-kit */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ── Core ── */
+  --background:          oklch(1 0 0);           /* #FFFFFF */
+  --foreground:          oklch(0.13 0.03 285);   /* #0C0A20 */
+  --primary:             oklch(0.50 0.27 286);   /* #8236FC */
+  --primary-foreground:  oklch(1 0 0);           /* #FFFFFF */
+
+  /* ── Surfaces ── */
+  --card:                oklch(0.975 0 0);       /* #F5F5F6 */
+  --card-foreground:     oklch(0.13 0.03 285);   /* #0C0A20 */
+  --muted:               #F3F3F4;
+  --muted-foreground:    #6B6B76;
+  --secondary:           #F7F7F8;
+  --secondary-foreground: oklch(0.13 0.03 285);
+  --accent:              #F7F7F8;
+  --accent-foreground:   oklch(0.13 0.03 285);
+
+  /* ── Borders & Inputs ── */
+  --border:              #EBEBED;
+  --input:               #E5E5E7;
+  --ring:                oklch(0.50 0.27 286);   /* #8236FC */
+
+  /* ── Status & Feedback ── */
+  --destructive:         #E33D3D;
+  --destructive-foreground: #FFFFFF;
+  --success:             #16A34A;
+  --success-foreground:  #FFFFFF;
+  --warning:             #D97706;
+  --warning-foreground:  #FFFFFF;
+
+  /* ── Charts ── */
+  --chart-1:             oklch(0.50 0.27 286);   /* purple */
+  --chart-2:             oklch(0.55 0.18 200);   /* teal */
+  --chart-3:             oklch(0.65 0.20 140);   /* green */
+  --chart-4:             oklch(0.70 0.18 60);    /* amber */
+  --chart-5:             oklch(0.55 0.22 340);   /* rose */
+
+  /* ── Semantic Aliases ── */
+  --color-bg:            var(--background);
+  --color-fg:            var(--foreground);
+  --color-brand:         var(--primary);
+  --color-surface:       var(--card);
+  --color-border:        var(--border);
+  --color-placeholder:   var(--muted-foreground);
+  --color-error:         var(--destructive);
+  --color-ok:            var(--success);
+  --color-warn:          var(--warning);
+}

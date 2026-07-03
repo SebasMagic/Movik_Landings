@@ -1,0 +1,53 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Feedback" subtitle="Alert (4 variants), Toast, Progress, Skeleton" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    body { padding: 20px 24px; background: var(--background); display: flex; flex-direction: column; gap: 10px; }
+    @keyframes movik-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  </style>
+</head>
+<body>
+  <!-- Alerts -->
+  <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--card);border:1px solid var(--border);border-left:2px solid #16A34A">
+    <span style="color:#16A34A;font-weight:700;font-size:13px;margin-top:1px">✓</span>
+    <div><p style="font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--foreground);margin:0">Load LD-10042 funded</p><p style="font-family:var(--font-sans);font-size:12px;color:var(--muted-foreground);margin:3px 0 0">Funds will appear within 1 business day.</p></div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--card);border:1px solid var(--border);border-left:2px solid #8236FC">
+    <span style="color:#8236FC;font-weight:700;font-size:13px;margin-top:1px">ℹ</span>
+    <div><p style="font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--foreground);margin:0">Application under review</p><p style="font-family:var(--font-sans);font-size:12px;color:var(--muted-foreground);margin:3px 0 0">We'll notify you within 24 hours.</p></div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--card);border:1px solid var(--border);border-left:2px solid #D97706">
+    <span style="color:#D97706;font-weight:700;font-size:13px;margin-top:1px">⚠</span>
+    <div><p style="font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--foreground);margin:0">Credit limit approaching 80%</p><p style="font-family:var(--font-sans);font-size:12px;color:var(--muted-foreground);margin:3px 0 0">Consider increasing your facility to avoid disruptions.</p></div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:var(--radius-md);background:var(--card);border:1px solid var(--border);border-left:2px solid #E33D3D">
+    <span style="color:#E33D3D;font-weight:700;font-size:13px;margin-top:1px">✕</span>
+    <div><p style="font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--foreground);margin:0">Failed to submit load</p><p style="font-family:var(--font-sans);font-size:12px;color:var(--muted-foreground);margin:3px 0 0">Check debtor information and try again.</p></div>
+  </div>
+  <!-- Toasts + Progress -->
+  <div style="display:flex;gap:12px;align-items:flex-start;margin-top:4px">
+    <div style="display:flex;flex-direction:column;gap:8px;flex:1">
+      <div style="display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border-radius:var(--radius-md);background:var(--card);border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.06);font-family:var(--font-sans);font-size:13px;color:var(--foreground)"><span style="color:#16A34A;font-weight:700">✓</span>Load submitted successfully<span style="margin-left:auto;color:var(--muted-foreground);font-size:11px;cursor:pointer">✕</span></div>
+      <div style="display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border-radius:var(--radius-md);background:var(--card);border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.06);font-family:var(--font-sans);font-size:13px;color:var(--foreground)"><span style="color:#E33D3D;font-weight:700">✕</span>Something went wrong<span style="margin-left:auto;color:var(--muted-foreground);font-size:11px;cursor:pointer">✕</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;flex:1">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between"><span style="font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--foreground)">Credit limit used</span><span style="font-family:var(--font-sans);font-size:12px;color:var(--muted-foreground)">72%</span></div>
+        <div style="height:6px;background:var(--muted);border-radius:9999px;overflow:hidden"><div style="height:100%;width:72%;background:#D97706;border-radius:9999px"></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between"><span style="font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--foreground)">Application progress</span><span style="font-family:var(--font-sans);font-size:12px;color:var(--muted-foreground)">60%</span></div>
+        <div style="height:6px;background:var(--muted);border-radius:9999px;overflow:hidden"><div style="height:100%;width:60%;background:var(--primary);border-radius:9999px"></div></div>
+      </div>
+      <!-- Skeleton -->
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="height:12px;background:var(--muted);border-radius:var(--radius-md);animation:movik-pulse 1.5s ease-in-out infinite;width:60%"></div>
+        <div style="height:12px;background:var(--muted);border-radius:var(--radius-md);animation:movik-pulse 1.5s ease-in-out infinite 0.2s;width:80%"></div>
+        <div style="height:12px;background:var(--muted);border-radius:var(--radius-md);animation:movik-pulse 1.5s ease-in-out infinite 0.4s;width:45%"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

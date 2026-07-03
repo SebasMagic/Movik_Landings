@@ -1,0 +1,33 @@
+<!-- @dsCard group="Brand" viewport="700x100" name="Motion" subtitle="150ms color transitions, 3px focus ring, pulse skeleton, spin loader" -->
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="../styles.css">
+<style>
+body{padding:16px 24px;background:var(--background);display:flex;align-items:center;gap:24px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.pulse{animation:pulse 1.5s ease-in-out infinite}
+.spin{animation:spin 0.8s linear infinite}
+</style>
+</head>
+<body>
+  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+      <button style="padding:8px 16px;background:var(--primary);color:white;border:none;border-radius:var(--radius-md);font:var(--type-ui);cursor:pointer;transition:var(--transition-colors)" onmouseover="this.style.background='#6c1ee0'" onmouseout="this.style.background='var(--primary)'">Hover me</button>
+      <span style="font:var(--type-caption);color:var(--muted-foreground)">150ms colors</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+      <button style="padding:8px 16px;background:var(--primary);color:white;border:none;border-radius:var(--radius-md);font:var(--type-ui);cursor:pointer;outline:none" onfocus="this.style.boxShadow='0 0 0 3px color-mix(in oklch,var(--primary) 50%,transparent)'" onblur="this.style.boxShadow='none'">Focus me</button>
+      <span style="font:var(--type-caption);color:var(--muted-foreground)">3px ring</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+      <div class="pulse" style="width:120px;height:32px;background:var(--muted);border-radius:var(--radius-md)"></div>
+      <span style="font:var(--type-caption);color:var(--muted-foreground)">Skeleton pulse</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+      <div class="spin" style="width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%"></div>
+      <span style="font:var(--type-caption);color:var(--muted-foreground)">Spinner</span>
+    </div>
+  </div>
+</body>
+</html>

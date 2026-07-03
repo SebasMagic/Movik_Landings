@@ -1,0 +1,54 @@
+/* Movik — Typography Tokens */
+
+:root {
+  /* ── Font Families ── */
+  --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', ui-monospace, monospace;
+
+  /* ── Type Scale — Size ── */
+  --text-xs:      11px;
+  --text-sm:      12px;
+  --text-base:    14px;
+  --text-md:      16px;
+  --text-lg:      20px;
+  --text-xl:      24px;
+  --text-2xl:     30px;
+  --text-3xl:     36px;
+  --text-4xl:     48px;
+
+  /* ── Font Weights ── */
+  --weight-regular:    400;
+  --weight-medium:     500;
+  --weight-semibold:   600;
+  --weight-bold:       700;
+  --weight-extrabold:  800;
+
+  /* ── Line Heights ── */
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* ── Letter Spacing ── */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide:   0.05em;
+  --tracking-wider:  0.08em;
+
+  /* ── Semantic Role Aliases ── */
+  --type-display:        var(--weight-extrabold) var(--text-4xl)/var(--leading-tight) var(--font-sans);
+  --type-h1:             var(--weight-bold) var(--text-3xl)/var(--leading-tight) var(--font-sans);
+  --type-h2:             var(--weight-bold) var(--text-2xl)/var(--leading-snug) var(--font-sans);
+  --type-h3:             var(--weight-semibold) var(--text-xl)/var(--leading-snug) var(--font-sans);
+  --type-h4:             var(--weight-semibold) var(--text-lg)/var(--leading-snug) var(--font-sans);
+  --type-h5:             var(--weight-medium) var(--text-md)/var(--leading-snug) var(--font-sans);
+  --type-body-lg:        var(--weight-regular) var(--text-md)/var(--leading-relaxed) var(--font-sans);
+  --type-body:           var(--weight-regular) var(--text-base)/var(--leading-normal) var(--font-sans);
+  --type-body-sm:        var(--weight-regular) var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --type-caption:        var(--weight-regular) var(--text-xs)/var(--leading-normal) var(--font-sans);
+  --type-label:          var(--weight-medium) var(--text-base)/1 var(--font-sans);
+  --type-ui:             var(--weight-medium) var(--text-sm)/1 var(--font-sans);
+  --type-table-header:   var(--weight-medium) var(--text-xs)/1 var(--font-sans);
+  --type-mono:           var(--weight-regular) var(--text-base)/1 var(--font-mono);
+  --type-mono-sm:        var(--weight-regular) var(--text-sm)/1 var(--font-mono);
+}

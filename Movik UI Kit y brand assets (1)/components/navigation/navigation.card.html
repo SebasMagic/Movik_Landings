@@ -1,0 +1,40 @@
+<!-- @dsCard group="Components" viewport="700x200" name="Navigation" subtitle="Tabs (underline), Breadcrumbs, Sidebar pattern, Pagination" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../../styles.css">
+  <style>body { padding: 20px 24px; background: var(--background); display: flex; flex-direction: column; gap: 20px; }</style>
+</head>
+<body>
+  <!-- Tabs -->
+  <div style="border-bottom:1px solid var(--border);display:flex;gap:0">
+    <button style="padding:8px 16px;background:none;border:none;border-bottom:2px solid var(--primary);margin-bottom:-1px;font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--foreground);cursor:pointer">Overview</button>
+    <button style="padding:8px 16px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--muted-foreground);cursor:pointer">Loads</button>
+    <button style="padding:8px 16px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--muted-foreground);cursor:pointer">Debtors</button>
+    <button style="padding:8px 16px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--muted-foreground);cursor:pointer">Settings</button>
+  </div>
+  <!-- Breadcrumbs -->
+  <nav style="display:flex;align-items:center;gap:4px">
+    <a href="#" style="font-family:var(--font-sans);font-size:13px;color:var(--muted-foreground);text-decoration:none">Loads</a>
+    <span style="color:var(--muted-foreground);font-size:12px;opacity:0.5">›</span>
+    <span style="font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--foreground)">LD-10042</span>
+  </nav>
+  <!-- Sidebar snippet -->
+  <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;width:fit-content">
+    <div style="background:var(--foreground);padding:16px 0;width:160px;display:flex;flex-direction:column;gap:2px">
+      <div style="padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:600;color:white;background:rgba(255,255,255,0.1);border-radius:4px;margin:0 8px">Dashboard</div>
+      <div style="padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer;margin:0 8px">Loads</div>
+      <div style="padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer;margin:0 8px">Debtors</div>
+      <div style="padding:8px 16px;font-family:var(--font-sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer;margin:0 8px">Reports</div>
+    </div>
+  </div>
+  <!-- Pagination -->
+  <div style="display:flex;gap:4px;align-items:center">
+    <button style="width:32px;height:32px;border-radius:var(--radius-md);border:1px solid var(--primary);background:var(--primary);color:#fff;font-family:var(--font-sans);font-size:13px;font-weight:600;cursor:pointer">1</button>
+    <button style="width:32px;height:32px;border-radius:var(--radius-md);border:1px solid var(--border);background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:13px;cursor:pointer">2</button>
+    <button style="width:32px;height:32px;border-radius:var(--radius-md);border:1px solid var(--border);background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:13px;cursor:pointer">3</button>
+    <span style="padding:0 4px;color:var(--muted-foreground);font-size:13px">…</span>
+    <button style="width:32px;height:32px;border-radius:var(--radius-md);border:1px solid var(--border);background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:13px;cursor:pointer">9</button>
+  </div>
+</body>
+</html>

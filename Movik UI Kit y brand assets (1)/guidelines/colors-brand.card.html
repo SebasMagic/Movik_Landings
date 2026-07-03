@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" viewport="700x120" name="Brand Purple" subtitle="Primary action color — buttons, links, focus rings" -->
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="../styles.css">
+<style>body{padding:16px;display:flex;gap:8px;align-items:flex-end;background:var(--background)}</style>
+</head>
+<body>
+  <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+    <div style="height:64px;border-radius:var(--radius-md);background:var(--primary)"></div>
+    <span style="font:var(--type-ui);color:var(--foreground)">--primary</span>
+    <span style="font:var(--type-caption);color:var(--muted-foreground);font-family:var(--font-mono)">#8236FC · oklch(0.50 0.27 286)</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;width:100px">
+    <div style="height:64px;border-radius:var(--radius-md);background:color-mix(in oklch,var(--primary) 80%,white)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">80%</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;width:100px">
+    <div style="height:64px;border-radius:var(--radius-md);background:color-mix(in oklch,var(--primary) 15%,white)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">15% (tint)</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;width:100px">
+    <div style="height:64px;border-radius:var(--radius-md);background:color-mix(in oklch,var(--primary) 8%,white)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">8% (ghost)</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- @dsCard group="Colors" viewport="700x120" name="Status Colors" subtitle="Success, warning, destructive — used in badges, alerts, and status dots" -->
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="../styles.css">
+<style>body{padding:16px;display:flex;gap:8px;align-items:flex-end;background:var(--background)}</style>
+</head>
+<body>
+  <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+    <div style="height:56px;border-radius:var(--radius-md);background:var(--success)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">--success · Funded</span>
+    <span style="font:var(--type-caption);color:var(--muted-foreground);font-family:monospace">#16A34A</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+    <div style="height:56px;border-radius:var(--radius-md);background:color-mix(in oklch,var(--success) 12%,white)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">Success tint</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+    <div style="height:56px;border-radius:var(--radius-md);background:var(--warning)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">--warning · Pending</span>
+    <span style="font:var(--type-caption);color:var(--muted-foreground);font-family:monospace">#D97706</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+    <div style="height:56px;border-radius:var(--radius-md);background:color-mix(in oklch,var(--warning) 12%,white)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">Warning tint</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+    <div style="height:56px;border-radius:var(--radius-md);background:var(--destructive)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">--destructive · Error</span>
+    <span style="font:var(--type-caption);color:var(--muted-foreground);font-family:monospace">#E33D3D</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+    <div style="height:56px;border-radius:var(--radius-md);background:color-mix(in oklch,var(--destructive) 10%,white)"></div>
+    <span style="font:var(--type-caption);color:var(--muted-foreground)">Destructive tint</span>
+  </div>
+</body>
+</html>
