@@ -369,10 +369,25 @@ class Component extends DCLogic {
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
 
-    // Hero video auto-play (muted so Chrome allows autoplay)
+    // Hero video auto-play & responsive (muted so Chrome allows autoplay)
     const video = document.getElementById('hero-video');
     if (video) {
       video.muted = true;
+      // Select video based on viewport width
+      const setVideoSrc = () => {
+        const isMobile = window.innerWidth < 768;
+        const source = video.querySelector('source[src*="highway"], source[src*="purple"]') || video.querySelector('source');
+        const newSrc = isMobile
+          ? 'uploads/Purple_semi-truck_drives_forward_1080p_202607030951_noaudio.mp4'
+          : 'uploads/Semi-truck_driving_on_highway_1080p_202607021545_noaudio.mp4';
+        if (source && source.src !== newSrc) {
+          source.src = newSrc;
+          video.load();
+        }
+      };
+      setVideoSrc();
+      window.addEventListener('resize', setVideoSrc);
+
       video.play().catch(() => {
         // Fallback: if immediate play fails, try after first user interaction
         const tryPlay = () => {
