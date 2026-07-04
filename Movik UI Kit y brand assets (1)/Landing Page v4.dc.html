@@ -51,11 +51,11 @@
 </nav>
 
 <!-- ─── HERO ─── -->
-<section style="min-height:100vh;background:#0D0520;position:relative;overflow:hidden;display:flex;align-items:center;padding:148px clamp(20px,5vw,56px) 360px;isolation:isolate;">
+<section style="min-height:100vh;background:#0D0520;position:relative;overflow:hidden;display:flex;align-items:center;padding:clamp(100px,15vh,148px) clamp(20px,5vw,56px) clamp(120px,20vh,360px);isolation:isolate;">
 
   <!-- Video background -->
   <div style="position:absolute;inset:0;z-index:0;">
-    <video id="hero-video" muted loop playsinline preload="auto" poster="uploads/hero-truck-poster.jpg" style="width:100%;height:100%;object-fit:cover;display:block;opacity:1;">
+    <video id="hero-video" muted loop playsinline preload="auto" poster="uploads/hero-truck-poster.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;opacity:1;will-change:auto;">
       <source src="uploads/Semi-truck_driving_on_highway_1080p_202607021545_noaudio.mp4" type="video/mp4">
       <source src="uploads/Purple_semi-truck_drives_forward_1080p_202607030951_noaudio.mp4" type="video/mp4">
     </video>
@@ -68,8 +68,8 @@
   </div>
 
   <!-- Animated orbs -->
-  <div style="position:absolute;top:6%;right:20%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(165,110,255,.14) 0%,transparent 65%);animation:glow 9s ease-in-out infinite;pointer-events:none;z-index:1;"></div>
-  <div style="position:absolute;bottom:30%;left:1%;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(130,54,252,.18) 0%,transparent 65%);animation:glow 13s ease-in-out infinite 4s;pointer-events:none;z-index:1;"></div>
+  <div style="position:absolute;top:6%;right:20%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(165,110,255,.14) 0%,transparent 65%);animation:glow 9s ease-in-out infinite;pointer-events:none;z-index:1;will-change:opacity;"></div>
+  <div style="position:absolute;bottom:30%;left:1%;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(130,54,252,.18) 0%,transparent 65%);animation:glow 13s ease-in-out infinite 4s;pointer-events:none;z-index:1;will-change:opacity;"></div>
 
   <!-- ▼ FADE — hero dissolves into dark below -->
   <div style="position:absolute;bottom:0;left:0;right:0;height:70%;background:linear-gradient(to bottom,transparent 0%,rgba(8,6,20,.38) 32%,rgba(8,6,20,.78) 60%,#080614 100%);z-index:2;pointer-events:none;"></div>
@@ -356,16 +356,21 @@ function submitApply(btn) {
 
 class Component extends DCLogic {
   componentDidMount() {
-    // Nav scroll
+    // Nav scroll (throttled to prevent jank)
+    let scrollTimeout;
     this._onScroll = () => {
-      const nav = document.getElementById('main-nav');
-      if (nav) {
-        const s = window.scrollY > 60;
-        nav.style.background = s ? 'rgba(8,6,20,0.94)' : 'transparent';
-        nav.style.backdropFilter = s ? 'blur(20px)' : 'none';
-        nav.style.webkitBackdropFilter = s ? 'blur(20px)' : 'none';
-        nav.style.borderBottom = s ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent';
-      }
+      if (scrollTimeout) return;
+      scrollTimeout = requestAnimationFrame(() => {
+        const nav = document.getElementById('main-nav');
+        if (nav) {
+          const s = window.scrollY > 60;
+          nav.style.background = s ? 'rgba(8,6,20,0.94)' : 'transparent';
+          nav.style.backdropFilter = s ? 'blur(20px)' : 'none';
+          nav.style.webkitBackdropFilter = s ? 'blur(20px)' : 'none';
+          nav.style.borderBottom = s ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent';
+        }
+        scrollTimeout = null;
+      });
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
 
