@@ -55,8 +55,8 @@
 
   <!-- Video background -->
   <div style="position:absolute;inset:0;z-index:0;">
-    <video autoplay="" muted="" loop="" playsinline="" preload="auto" poster="uploads/hero-truck-poster.jpg" style="width:100%;height:100%;object-fit:cover;display:block;opacity:1;">
-      <source src="uploads/Semi-truck_drives_through_desert_1080p_202607021549.mp4" type="video/mp4">
+    <video id="hero-video" autoplay="" muted="" loop="" playsinline="" preload="auto" poster="uploads/hero-truck-poster.jpg" style="width:100%;height:100%;object-fit:cover;display:block;opacity:1;">
+      <source src="uploads/Semi-truck_driving_on_highway_1080p_202607021545_noaudio.mp4" type="video/mp4">
     </video>
     <!-- Heavy purple overlay — video as pure graphic element -->
     <div style="position:absolute;inset:0;background:linear-gradient(125deg,rgba(55,8,165,.93) 0%,rgba(90,25,200,.82) 40%,rgba(60,10,175,.7) 80%,rgba(35,5,120,.55) 100%);"></div>
@@ -367,6 +367,24 @@ class Component extends DCLogic {
       }
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    // Responsive hero video
+    const heroVideo = document.getElementById('hero-video');
+    if (heroVideo) {
+      const setVideoSrc = () => {
+        const isMobile = window.innerWidth < 768;
+        const desktopSrc = 'uploads/Semi-truck_driving_on_highway_1080p_202607021545_noaudio.mp4';
+        const mobileSrc = 'uploads/Purple_semi-truck_drives_forward_1080p_202607030951_noaudio.mp4';
+        const source = heroVideo.querySelector('source');
+        const newSrc = isMobile ? mobileSrc : desktopSrc;
+        if (source && source.src !== newSrc) {
+          source.src = newSrc;
+          heroVideo.load();
+        }
+      };
+      setVideoSrc();
+      window.addEventListener('resize', setVideoSrc);
+    }
 
     // Scroll reveal
     this._obs = new IntersectionObserver(entries => {
