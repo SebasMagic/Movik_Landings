@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#080614;-webkit-font-smoothing:antialiased;overflow-x:hidden;color:#0C0A20}
+    body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px 256px}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes glow{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.16;transform:scale(1.12)}}
+    input::placeholder{color:rgba(255,255,255,.28);font-family:'Plus Jakarta Sans',sans-serif}
+    input,button,select{font-family:'Plus Jakarta Sans',sans-serif;outline:none}
+    select option{background:#1a1030;color:#fff}
+    .calc-input{width:100%;height:56px;padding:0 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-size:20px;font-weight:700;transition:border-color 150ms,box-shadow 150ms}
+    .calc-input:focus{border-color:#8236FC;box-shadow:0 0 0 3px rgba(130,54,252,.22)}
+    .calc-input-wrap{position:relative}
+    .calc-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;font-weight:700;color:rgba(255,255,255,.35);pointer-events:none}
+    .calc-suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:18px;font-weight:700;color:rgba(255,255,255,.35);pointer-events:none}
+    .with-prefix{padding-left:36px}
+    .with-suffix{padding-right:36px}
+  </style>
+</helmet>
+
+<!-- NAV -->
+<nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;">
+  <img src="https://movik.us/movik_white.avif" alt="Movik" style="height:25px;">
+  <a href="https://wa.me/13392121905" target="_blank" style="display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 20px;background:#8236FC;color:#fff;font-size:13px;font-weight:700;text-decoration:none;border-radius:8px;transition:background 150ms,transform 150ms,box-shadow 150ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-1px)';this.style.boxShadow='0 8px 24px rgba(130,54,252,.5)'" onmouseout="this.style.background='#8236FC';this.style.transform='none';this.style.boxShadow='none'">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Talk on WhatsApp
+  </a>
+</nav>
+
+<!-- HERO + CALCULATOR unified full-screen section -->
+<section style="min-height:100vh;background:#0D0520;position:relative;overflow:hidden;display:flex;flex-direction:column;padding:110px 48px 48px;isolation:isolate;">
+  <div style="position:absolute;inset:0;z-index:0;">
+    <img src="uploads/movik-truck-side.png" alt="Movik truck" style="width:100%;height:100%;object-fit:cover;object-position:center 45%;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,20,.92) 0%,rgba(8,6,20,.65) 35%,rgba(8,6,20,.80) 62%,rgba(8,6,20,.97) 82%,#080614 100%);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(55,10,155,.65) 0%,transparent 55%);"></div>
+  </div>
+  <div style="position:absolute;top:8%;right:12%;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(130,54,252,.15) 0%,transparent 65%);animation:glow 9s ease-in-out infinite;pointer-events:none;z-index:1;"></div>
+
+  <!-- Headline block -->
+  <div style="max-width:900px;margin:0 auto;width:100%;position:relative;z-index:2;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:32px;">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:9999px;border:1px solid rgba(190,160,255,.22);background:rgba(130,54,252,.1);margin-bottom:24px;animation:fadeUp .5s ease both;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#B090FF;animation:glow 2.5s ease-in-out infinite;flex-shrink:0;"></span>
+      <span style="font-size:10px;font-weight:700;color:rgba(195,168,255,.88);letter-spacing:.1em;text-transform:uppercase;">QuickPay Calculator · Carriers</span>
+    </div>
+
+    <h1 style="font-size:66px;font-weight:800;color:#fff;line-height:.93;letter-spacing:-.045em;margin-bottom:18px;animation:fadeUp .72s .1s ease both;animation-fill-mode:both;">
+      You make $10K and you<br>don't keep $10K. Know<br><em style="color:#C4A8FF;font-style:italic;">where it goes?</em>
+    </h1>
+
+    <p style="font-size:16px;font-weight:400;color:rgba(255,255,255,.55);line-height:1.65;max-width:540px;margin:0 auto;animation:fadeUp .72s .22s ease both;animation-fill-mode:both;">
+      Enter three numbers and we'll show you, with your own figures, how much goes to fees each week, each month, and each year. Free, and no sign-up.
+    </p>
+  </div>
+
+  <!-- Calculator card — inside the hero -->
+  <div style="max-width:900px;margin:0 auto;width:100%;position:relative;z-index:2;">
+    <div style="background:rgba(12,8,32,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px;box-shadow:0 24px 80px rgba(0,0,0,.6);">
+
+      <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.35);margin-bottom:28px;">Your numbers, your call</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);margin-bottom:10px;">How much do you invoice per week?</label>
+          <div class="calc-input-wrap">
+            <span class="calc-prefix">$</span>
+            <input class="calc-input with-prefix" type="number" id="weekly-invoice" value="20000" min="0" step="500" placeholder="20,000">
+          </div>
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);margin-bottom:10px;">Number of invoices per week</label>
+          <div class="calc-input-wrap">
+            <input class="calc-input" type="number" id="num-invoices" value="8" min="1" step="1" placeholder="8">
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:32px;">
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);margin-bottom:10px;">How many days do you wait to get paid?</label>
+          <select id="wait-days" class="calc-input" style="cursor:pointer;appearance:none;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22rgba(255,255,255,0.4)%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>');background-repeat:no-repeat;background-position:right 14px center;background-size:18px;padding-right:40px;">
+            <option value="30">30 days</option>
+            <option value="45" selected="">45 days</option>
+            <option value="60">60 days</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);margin-bottom:10px;">What fee does your factor charge?</label>
+          <div class="calc-input-wrap">
+            <input class="calc-input with-suffix" type="number" id="factor-rate" value="4.5" min="0" max="20" step="0.1" placeholder="4.5">
+            <span class="calc-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);margin-bottom:10px;">ACH fee per invoice?</label>
+          <div class="calc-input-wrap">
+            <span class="calc-prefix">$</span>
+            <input class="calc-input with-prefix" type="number" id="ach-fee" value="15" min="0" step="1" placeholder="15">
+          </div>
+        </div>
+      </div>
+
+      <button onclick="calcRun()" style="width:100%;height:60px;background:#8236FC;color:#fff;font-size:18px;font-weight:800;border:none;border-radius:12px;cursor:pointer;letter-spacing:-.01em;transition:background 150ms,transform 200ms,box-shadow 200ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 16px 48px rgba(130,54,252,.55)'" onmouseout="this.style.background='#8236FC';this.style.transform='none';this.style.boxShadow='none'">
+        See my numbers →
+      </button>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results-section" style="display:none;margin-top:32px;animation:fadeUp .6s ease both;">
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:32px;margin-bottom:20px;">
+        <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.35);margin-bottom:20px;">This week</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+            <span id="r-desc-factor" style="font-size:15px;color:rgba(255,255,255,.55);">Your factor charges 4.5%</span>
+            <span id="r-weekly-factor" style="font-size:18px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;">$900</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+            <span id="r-desc-ach" style="font-size:15px;color:rgba(255,255,255,.55);">ACH ($15 × 8 invoices)</span>
+            <span id="r-weekly-ach" style="font-size:18px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;">$120</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;">
+            <span style="font-size:17px;font-weight:700;color:#fff;">This week's total</span>
+            <span id="r-weekly-total" style="font-size:24px;font-weight:800;color:#E33D3D;font-variant-numeric:tabular-nums;">$1,020</span>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(220,60,60,.06);border-radius:8px;border-left:3px solid rgba(220,60,60,.4);">
+          <p id="r-days-note" style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;">With your factor, this money sat frozen for <strong style="color:rgba(255,255,255,.7);">45 days</strong> before hitting your account.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;text-align:center;">
+          <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:16px;">ACH alone · Per year</p>
+          <p id="r-yearly-ach" style="font-size:56px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;margin-bottom:8px;">$5,760</p>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);">In ACH fees alone</p>
+        </div>
+        <div style="background:rgba(220,60,60,.06);border:1px solid rgba(220,60,60,.22);border-radius:16px;padding:32px;text-align:center;">
+          <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(220,60,60,.7);margin-bottom:16px;">All of it · Per year</p>
+          <p id="r-yearly-total" style="font-size:56px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;margin-bottom:8px;">$53,040</p>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);">Factor rate + ACH combined</p>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(130,54,252,.12) 0%,rgba(80,20,180,.08) 100%);border:1px solid rgba(130,54,252,.25);border-radius:16px;padding:36px;">
+        <p id="r-truck-line" style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:16px;">That's the down payment on your next truck.</p>
+        <p style="font-size:15px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:28px;">With Movik you get paid <strong style="color:#C4A8FF;">before pickup</strong>, you see every charge before you accept it, and you choose how to get paid, load by load. The platform and invoicing are free. You only use the financing when you need it.</p>
+        <a href="https://wa.me/13392121905" target="_blank" style="display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 32px;background:#8236FC;color:#fff;font-size:15px;font-weight:700;text-decoration:none;border-radius:10px;transition:background 150ms,transform 200ms,box-shadow 200ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 16px 48px rgba(130,54,252,.55)'" onmouseout="this.style.background='#8236FC';this.style.transform='none';this.style.boxShadow='none'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Talk to an advisor on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY FREE -->
+<section style="background:#080614;padding:96px 48px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:700px;margin:0 auto;text-align:center;">
+    <div data-reveal="" style="opacity:0;transform:translateY(36px);">
+      <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#8236FC;margin-bottom:16px;">Why we show you this free</p>
+      <h2 style="font-size:40px;font-weight:800;color:#fff;letter-spacing:-.035em;line-height:.97;margin-bottom:18px;">Because almost nobody has seen this bill all in one place.</h2>
+      <p style="font-size:17px;color:rgba(255,255,255,.45);line-height:1.7;">Once you see it, you decide better. No strings, nothing to hand over.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:#F7F5FF;padding:96px 48px;">
+  <div style="max-width:720px;margin:0 auto;">
+    <div data-reveal="" style="opacity:0;transform:translateY(36px);text-align:center;margin-bottom:56px;">
+      <h2 style="font-size:38px;font-weight:800;color:#0C0A20;letter-spacing:-.035em;">FAQ</h2>
+    </div>
+    <div data-reveal="" data-reveal-delay=".08" style="opacity:0;transform:translateY(36px);">
+      <div style="border-top:1px solid #E4DEFF;">
+        <button onclick="toggleFaq(0)" style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Do I have to sign up?</span><svg id="faq-icon-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+        <div id="faq-body-0" style="overflow:hidden;max-height:0;transition:max-height 350ms cubic-bezier(0.16,1,0.3,1);"><p style="font-size:15px;color:#6B6B76;line-height:1.7;padding-bottom:22px;">Not to see your numbers. Only if you want us to help with your real figures in a WhatsApp conversation.</p></div>
+      </div>
+      <div style="border-top:1px solid #E4DEFF;">
+        <button onclick="toggleFaq(1)" style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Where do the numbers come from?</span><svg id="faq-icon-1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+        <div id="faq-body-1" style="overflow:hidden;max-height:0;transition:max-height 350ms cubic-bezier(0.16,1,0.3,1);"><p style="font-size:15px;color:#6B6B76;line-height:1.7;padding-bottom:22px;">From what you enter. It's your operation, not our estimate. We don't see your data and we don't store it.</p></div>
+      </div>
+      <div style="border-top:1px solid #E4DEFF;border-bottom:1px solid #E4DEFF;">
+        <button onclick="toggleFaq(2)" style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Are the $5,760 and the $53,000 the same thing?</span><svg id="faq-icon-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+        <div id="faq-body-2" style="overflow:hidden;max-height:0;transition:max-height 350ms cubic-bezier(0.16,1,0.3,1);"><p style="font-size:15px;color:#6B6B76;line-height:1.7;padding-bottom:22px;">No. The first is <strong>ACH alone for the year</strong>. The second is <strong>everything the factor keeps</strong> (their rate + ACH). Two different totals. Example values are illustrative — your result depends on the data you enter.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA CLOSE -->
+<section style="background:#080614;padding:108px 48px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(130,54,252,.22) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="max-width:600px;margin:0 auto;text-align:center;position:relative;z-index:1;">
+    <div data-reveal="" style="opacity:0;transform:translateY(36px);">
+      <h2 style="font-size:52px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:.93;margin-bottom:18px;">Want us to run your real numbers with you?</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,.42);line-height:1.65;margin-bottom:36px;">No commitment. No fine print. Just your numbers, clear.</p>
+      <a href="https://wa.me/13392121905" target="_blank" style="display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 36px;background:#8236FC;color:#fff;font-size:16px;font-weight:700;text-decoration:none;border-radius:10px;transition:background 150ms,transform 200ms,box-shadow 200ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 20px 56px rgba(130,54,252,.6)'" onmouseout="this.style.background='#8236FC';this.style.transform='none';this.style.boxShadow='none'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Talk to an advisor on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#080614;border-top:1px solid rgba(255,255,255,.05);padding:28px 48px;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;">
+    <img src="https://movik.us/movik_white.avif" alt="Movik" style="height:20px;opacity:.45;">
+    <p style="font-size:11px;color:rgba(255,255,255,.18);">© 2026 Movik · Example values are illustrative. Your result depends on the data you enter.</p>
+    <a href="https://wa.me/13392121905" target="_blank" style="font-size:12px;color:rgba(255,255,255,.25);text-decoration:none;transition:color 150ms;" onmouseover="this.style.color='rgba(255,255,255,.65)'" onmouseout="this.style.color='rgba(255,255,255,.25)'">+1 (339) 212-1905</a>
+  </div>
+</footer>
+
+<script>
+function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+function calcRun() {
+  const weekly = parseFloat(document.getElementById('weekly-invoice').value) || 0;
+  const numInv = parseFloat(document.getElementById('num-invoices').value) || 8;
+  const waitDays = parseInt(document.getElementById('wait-days').value) || 45;
+  const rate = parseFloat(document.getElementById('factor-rate').value) || 0;
+  const ach = parseFloat(document.getElementById('ach-fee').value) || 0;
+
+  const wFactor = weekly * (rate / 100);
+  const wACH = ach * numInv;
+  const wTotal = wFactor + wACH;
+  const yACH = wACH * 52;
+  const yTotal = wTotal * 52;
+
+  document.getElementById('r-desc-factor').textContent = 'Your factor charges ' + rate + '%';
+  document.getElementById('r-weekly-factor').textContent = fmt(wFactor);
+  document.getElementById('r-desc-ach').textContent = 'ACH (' + fmt(ach) + ' × ' + numInv + ' invoices)';
+  document.getElementById('r-weekly-ach').textContent = fmt(wACH);
+  document.getElementById('r-weekly-total').textContent = fmt(wTotal);
+  document.getElementById('r-days-note').innerHTML = 'With your factor, this money sat frozen for <strong style="color:rgba(255,255,255,.7);">' + waitDays + ' days</strong> before hitting your account.';
+  document.getElementById('r-yearly-ach').textContent = fmt(yACH);
+  document.getElementById('r-yearly-total').textContent = fmt(yTotal);
+
+  const rs = document.getElementById('results-section');
+  rs.style.display = 'block';
+  const top = rs.getBoundingClientRect().top + window.scrollY - 90;
+  setTimeout(() => window.scrollTo({ top, behavior: 'smooth' }), 80);
+}
+
+let openFaq = null;
+function toggleFaq(i) {
+  if (openFaq !== null && openFaq !== i) {
+    document.getElementById('faq-body-' + openFaq).style.maxHeight = '0';
+    document.getElementById('faq-icon-' + openFaq).style.transform = 'rotate(0deg)';
+  }
+  const body = document.getElementById('faq-body-' + i);
+  const icon = document.getElementById('faq-icon-' + i);
+  if (openFaq === i) {
+    body.style.maxHeight = '0'; icon.style.transform = 'rotate(0deg)'; openFaq = null;
+  } else {
+    body.style.maxHeight = body.scrollHeight + 'px'; icon.style.transform = 'rotate(180deg)'; openFaq = i;
+  }
+}
+</script>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+
+class Component extends DCLogic {
+  componentDidMount() {
+    this._onScroll = () => {
+      const nav = document.getElementById('main-nav');
+      if (nav) {
+        const s = window.scrollY > 50;
+        nav.style.background = s ? 'rgba(8,6,20,0.94)' : 'transparent';
+        nav.style.backdropFilter = s ? 'blur(20px)' : 'none';
+        nav.style.webkitBackdropFilter = s ? 'blur(20px)' : 'none';
+        nav.style.borderBottom = s ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent';
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    this._obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const delay = parseFloat(entry.target.dataset.revealDelay || 0) * 1000;
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, delay);
+        this._obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
+      this._obs.observe(el);
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._obs) this._obs.disconnect();
+  }
+
+  renderVals() { return {}; }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="logo%20movik%20favicon.png">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#0A0818;-webkit-font-smoothing:antialiased;overflow-x:hidden;color:#0C0A20}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes glow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.22;transform:scale(1.14)}}
+    @keyframes drift{0%,100%{transform:translateY(0px)}50%{transform:translateY(-16px)}}
+    @keyframes drift2{0%,100%{transform:translateY(0px)}50%{transform:translateY(-10px)}}
+    @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+    @keyframes revealLine{from{width:0}to{width:100%}}
+    input::placeholder{color:rgba(255,255,255,.28);font-family:'Plus Jakarta Sans',sans-serif}
+    input{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none}
+    button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
+  </style>
+</helmet>
+
+<!-- ─── NAV ─── -->
+<nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;padding:0 56px;height:70px;display:flex;align-items:center;justify-content:space-between;">
+  <img src="https://movik.us/movik_white.avif" alt="Movik" style="height:26px;position:relative;z-index:1;">
+  <div style="display:flex;align-items:center;gap:40px;">
+    <a href="#how-it-works" style="font-size:14px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;transition:color 150ms;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">How it works</a>
+    <a href="#rates" style="font-size:14px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;transition:color 150ms;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Rates</a>
+    <a href="#apply" style="display:inline-flex;align-items:center;height:40px;padding:0 22px;background:#8236FC;color:#fff;font-size:14px;font-weight:700;text-decoration:none;border-radius:8px;transition:background 150ms,transform 150ms,box-shadow 150ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-1px)';this.style.boxShadow='0 8px 28px rgba(130,54,252,.45)'" onmouseout="this.style.background='#8236FC';this.style.transform='translateY(0)';this.style.boxShadow='none'">Get Started</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section style="min-height:100vh;background:#150930;position:relative;overflow:hidden;display:flex;align-items:center;padding:148px 56px 340px;isolation:isolate;">
+
+  <!-- Truck photo -->
+  <div style="position:absolute;inset:0;z-index:0;">
+    <img id="hero-truck" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1920&q=85" alt="" style="width:100%;height:130%;object-fit:cover;object-position:60% 40%;will-change:transform;transform:translateY(0);display:block;">
+    <!-- Morado clarito overlay -->
+    <div style="position:absolute;inset:0;background:linear-gradient(120deg,rgba(72,14,195,.91) 0%,rgba(105,38,218,.72) 40%,rgba(65,12,175,.52) 80%,rgba(40,8,120,.3) 100%);"></div>
+    <!-- Lavender shimmer top-left -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(220,195,255,.28) 0%,transparent 52%);"></div>
+    <!-- Right light spill -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 55%,rgba(150,100,255,.12) 0%,transparent 50%);"></div>
+  </div>
+
+  <!-- Floating glow orbs -->
+  <div style="position:absolute;top:8%;right:22%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(175,130,255,.16) 0%,transparent 68%);animation:glow 8s ease-in-out infinite;pointer-events:none;z-index:1;"></div>
+  <div style="position:absolute;bottom:32%;left:2%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(130,54,252,.2) 0%,transparent 68%);animation:glow 11s ease-in-out infinite 3s;pointer-events:none;z-index:1;"></div>
+
+  <!-- ▼ THE FADE — dissolves hero into dark below -->
+  <div style="position:absolute;bottom:0;left:0;right:0;height:68%;background:linear-gradient(to bottom,transparent 0%,rgba(10,8,24,.4) 35%,rgba(10,8,24,.82) 65%,#0A0818 100%);z-index:2;pointer-events:none;"></div>
+
+  <!-- Content grid -->
+  <div style="max-width:1160px;margin:0 auto;width:100%;position:relative;z-index:3;display:grid;grid-template-columns:1fr 268px;gap:56px;align-items:flex-start;">
+
+    <!-- Left: copy -->
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 18px;border-radius:9999px;border:1px solid rgba(200,170,255,.28);background:rgba(130,54,252,.14);margin-bottom:36px;animation:fadeUp .55s ease both;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#B898FF;animation:glow 2.5s ease-in-out infinite;flex-shrink:0;"></span>
+        <span style="font-size:11px;font-weight:700;color:rgba(205,180,255,.9);letter-spacing:.08em;text-transform:uppercase;">Pre-Pick-Up Financing</span>
+      </div>
+
+      <h1 style="font-size:86px;font-weight:800;color:#fff;line-height:.92;letter-spacing:-.045em;margin-bottom:30px;animation:fadeUp .72s .1s ease both;animation-fill-mode:both;">
+        Your factor<br>is keeping<br><em style="color:#C4A8FF;font-style:italic;">more</em> than<br>their fair share.
+      </h1>
+
+      <p style="font-size:18px;font-weight:400;color:rgba(255,255,255,.58);line-height:1.7;max-width:490px;margin-bottom:48px;animation:fadeUp .72s .24s ease both;animation-fill-mode:both;">
+        Hidden fees. Long contracts. Slow funding. Movik was built to end all of it — transparent flat rates, 24-hour funding, and zero exit penalties. Period.
+      </p>
+
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;animation:fadeUp .72s .36s ease both;animation-fill-mode:both;">
+        <a href="#apply" style="display:inline-flex;align-items:center;height:54px;padding:0 34px;background:#8236FC;color:#fff;font-size:16px;font-weight:700;text-decoration:none;border-radius:8px;transition:background 150ms,transform 200ms,box-shadow 200ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 20px 56px rgba(130,54,252,.55)'" onmouseout="this.style.background='#8236FC';this.style.transform='translateY(0)';this.style.boxShadow='none'">Get Funded Today</a>
+        <a href="#rates" style="display:inline-flex;align-items:center;gap:6px;height:54px;padding:0 28px;background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-weight:600;text-decoration:none;border-radius:8px;border:1px solid rgba(255,255,255,.16);transition:background 150ms;" onmouseover="this.style.background='rgba(255,255,255,.13)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">See Rates <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+      </div>
+    </div>
+
+    <!-- Right: floating stat cards -->
+    <div style="display:flex;flex-direction:column;gap:12px;padding-top:24px;animation:fadeIn .9s .5s ease both;animation-fill-mode:both;">
+      <div style="background:rgba(255,255,255,.06);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:22px 26px;animation:drift 9s ease-in-out infinite;">
+        <p style="font-size:36px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums;">98%</p>
+        <p style="font-size:11px;font-weight:700;color:rgba(255,255,255,.42);margin-top:6px;text-transform:uppercase;letter-spacing:.07em;">Approval Rate</p>
+      </div>
+      <div style="background:rgba(255,255,255,.06);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:22px 26px;animation:drift 12s ease-in-out infinite 2s;">
+        <p style="font-size:36px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1;">&lt;24h</p>
+        <p style="font-size:11px;font-weight:700;color:rgba(255,255,255,.42);margin-top:6px;text-transform:uppercase;letter-spacing:.07em;">Avg. Funding Time</p>
+      </div>
+      <div style="background:rgba(130,54,252,.18);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(130,54,252,.35);border-radius:16px;padding:22px 26px;animation:drift2 8s ease-in-out infinite 1s;">
+        <p style="font-size:36px;font-weight:800;color:#C4A8FF;letter-spacing:-.04em;line-height:1;">$0</p>
+        <p style="font-size:11px;font-weight:700;color:rgba(200,175,255,.5);margin-top:6px;text-transform:uppercase;letter-spacing:.07em;">Exit Penalty</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── TICKER STRIP ─── -->
+<div style="background:#0A0818;overflow:hidden;padding:14px 0;border-top:1px solid rgba(130,54,252,.18);border-bottom:1px solid rgba(130,54,252,.18);">
+  <div style="display:flex;animation:ticker 32s linear infinite;width:max-content;white-space:nowrap;align-items:center;gap:0;">
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">24-Hour Funding</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">98% Approval Rate</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8236FC;">Zero Hidden Fees</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">Month-to-Month</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">Pre-Pick-Up Financing</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">No Exit Penalties</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">24-Hour Funding</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">98% Approval Rate</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8236FC;">Zero Hidden Fees</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">Month-to-Month</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">Pre-Pick-Up Financing</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+    <span style="padding:0 28px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);">No Exit Penalties</span>
+    <span style="color:rgba(130,54,252,.6);font-size:8px;">●</span>
+  </div>
+</div>
+
+<!-- ─── STATS ─── -->
+<section id="stats-section" style="background:#0A0818;padding:100px 56px 108px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;">
+      <div data-reveal="" style="opacity:0;transform:translateY(40px);text-align:center;padding:0 32px;">
+        <p data-count="98" data-suffix="%" style="font-size:76px;font-weight:800;color:#fff;letter-spacing:-.05em;font-variant-numeric:tabular-nums;line-height:1;">98%</p>
+        <p style="font-size:12px;font-weight:600;color:rgba(255,255,255,.35);margin-top:14px;text-transform:uppercase;letter-spacing:.09em;">Approval Rate</p>
+      </div>
+      <div data-reveal="" data-reveal-delay=".1" style="opacity:0;transform:translateY(40px);text-align:center;padding:0 32px;border-left:1px solid rgba(255,255,255,.06);">
+        <p style="font-size:76px;font-weight:800;color:#fff;letter-spacing:-.05em;line-height:1;">&lt;24h</p>
+        <p style="font-size:12px;font-weight:600;color:rgba(255,255,255,.35);margin-top:14px;text-transform:uppercase;letter-spacing:.09em;">Avg. Funding Time</p>
+      </div>
+      <div data-reveal="" data-reveal-delay=".2" style="opacity:0;transform:translateY(40px);text-align:center;padding:0 32px;border-left:1px solid rgba(255,255,255,.06);">
+        <p style="font-size:76px;font-weight:800;color:#fff;letter-spacing:-.05em;line-height:1;">$0</p>
+        <p style="font-size:12px;font-weight:600;color:rgba(255,255,255,.35);margin-top:14px;text-transform:uppercase;letter-spacing:.09em;">Hidden Fees</p>
+      </div>
+      <div data-reveal="" data-reveal-delay=".3" style="opacity:0;transform:translateY(40px);text-align:center;padding:0 32px;border-left:1px solid rgba(255,255,255,.06);">
+        <p style="font-size:76px;font-weight:800;color:#8236FC;letter-spacing:-.05em;line-height:1;">$0</p>
+        <p style="font-size:12px;font-weight:600;color:rgba(255,255,255,.35);margin-top:14px;text-transform:uppercase;letter-spacing:.09em;">Exit Penalty</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PAIN SECTION ─── -->
+<section style="background:#0A0818;padding:0 56px 108px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="border-top:1px solid rgba(255,255,255,.07);padding-top:96px;text-align:center;margin-bottom:64px;" data-reveal="" style="opacity:0;transform:translateY(40px);">
+      <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8236FC;margin-bottom:16px;">Sound Familiar?</p>
+      <h2 style="font-size:50px;font-weight:800;color:#fff;letter-spacing:-.035em;line-height:1.0;">This is what bad factoring<br>looks like.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div data-reveal="" data-reveal-delay=".05" style="opacity:0;transform:translateY(40px);background:rgba(220,60,60,.05);border:1px solid rgba(220,60,60,.18);border-radius:14px;padding:32px;transition:border-color 200ms,transform 200ms;" onmouseover="this.style.borderColor='rgba(220,60,60,.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(220,60,60,.18)';this.style.transform='translateY(0)'">
+        <div style="width:38px;height:38px;border-radius:9px;background:rgba(220,60,60,.14);display:flex;align-items:center;justify-content:center;margin-bottom:22px;flex-shrink:0;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E33D3D" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        </div>
+        <p style="font-size:17px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:14px;">"I thought the rate was 3%. The fine print turned it into 6%."</p>
+        <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.65;">Origination fees, invoice fees, wire fees. The quoted rate is just the beginning. By the time every charge hits, your margins are gone.</p>
+      </div>
+      <div data-reveal="" data-reveal-delay=".15" style="opacity:0;transform:translateY(40px);background:rgba(220,60,60,.05);border:1px solid rgba(220,60,60,.18);border-radius:14px;padding:32px;transition:border-color 200ms,transform 200ms;" onmouseover="this.style.borderColor='rgba(220,60,60,.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(220,60,60,.18)';this.style.transform='translateY(0)'">
+        <div style="width:38px;height:38px;border-radius:9px;background:rgba(220,60,60,.14);display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E33D3D" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </div>
+        <p style="font-size:17px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:14px;">"I wanted to leave. They charged me $8,000 to exit my contract."</p>
+        <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.65;">12 to 24-month lock-ins with steep termination fees are standard. You're stuck even when it stops working for your business.</p>
+      </div>
+      <div data-reveal="" data-reveal-delay=".25" style="opacity:0;transform:translateY(40px);background:rgba(220,60,60,.05);border:1px solid rgba(220,60,60,.18);border-radius:14px;padding:32px;transition:border-color 200ms,transform 200ms;" onmouseover="this.style.borderColor='rgba(220,60,60,.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(220,60,60,.18)';this.style.transform='translateY(0)'">
+        <div style="width:38px;height:38px;border-radius:9px;background:rgba(220,60,60,.14);display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E33D3D" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <p style="font-size:17px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:14px;">"I picked up Monday. My factor released the money Thursday."</p>
+        <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.65;">When your cash is tied up for 3–5 days, you can't fuel the next truck. Slow funding kills operations — and most factors know it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PHOTO BREAK ─── -->
+<div style="height:520px;position:relative;overflow:hidden;">
+  <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1920&q=85" alt="Freight truck on highway" style="width:100%;height:100%;object-fit:cover;object-position:center 72%;display:block;" id="road-img">
+  <!-- Dark tint + top blend from pain section dark bg -->
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,#0A0818 0%,rgba(10,8,24,.18) 18%,rgba(10,8,24,.45) 75%,#fff 100%);"></div>
+  <!-- Purple tint for brand cohesion -->
+  <div style="position:absolute;inset:0;background:rgba(90,30,180,.22);"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 40px;">
+    <p data-reveal="" style="opacity:0;transform:translateY(40px);font-size:36px;font-weight:800;color:#fff;letter-spacing:-.03em;text-align:center;text-shadow:0 4px 32px rgba(0,0,0,.7);max-width:700px;line-height:1.15;">The road ahead deserves financing that's as straightforward as the work you do.</p>
+  </div>
+</div>
+
+<!-- ─── SOLUTION SECTION ─── -->
+<section id="rates" style="background:#fff;padding:108px 56px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
+      <div data-reveal="" style="opacity:0;transform:translateY(40px);">
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8236FC;margin-bottom:16px;">The Movik Way</p>
+        <h2 style="font-size:48px;font-weight:800;color:#0C0A20;letter-spacing:-.035em;line-height:1.0;margin-bottom:22px;">Freight financing<br>built on honesty.</h2>
+        <p style="font-size:17px;color:#6B6B76;line-height:1.7;margin-bottom:40px;">We built Movik because freight brokers and carriers deserve financing that's as straightforward as the work they do. What we quote is what you pay. Period.</p>
+        <a href="#apply" style="display:inline-flex;align-items:center;height:50px;padding:0 28px;background:#8236FC;color:#fff;font-size:15px;font-weight:700;text-decoration:none;border-radius:8px;transition:background 150ms,transform 200ms,box-shadow 200ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 36px rgba(130,54,252,.35)'" onmouseout="this.style.background='#8236FC';this.style.transform='translateY(0)';this.style.boxShadow='none'">Apply in 2 Minutes</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div data-reveal="" data-reveal-delay=".08" style="opacity:0;transform:translateY(40px);display:flex;gap:18px;align-items:flex-start;padding:22px 24px;background:#F5F3FF;border-radius:12px;border:1px solid #E8E2FF;transition:transform 200ms,box-shadow 200ms;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(130,54,252,.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(130,54,252,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <div><p style="font-size:15px;font-weight:700;color:#0C0A20;margin:0 0 5px;">One flat, transparent rate</p><p style="font-size:13px;color:#6B6B76;line-height:1.55;">No origination fees. No invoice fees. No wire charges. The rate we quote is the rate you pay — nothing buried in the agreement.</p></div>
+        </div>
+        <div data-reveal="" data-reveal-delay=".16" style="opacity:0;transform:translateY(40px);display:flex;gap:18px;align-items:flex-start;padding:22px 24px;background:#F5F3FF;border-radius:12px;border:1px solid #E8E2FF;transition:transform 200ms,box-shadow 200ms;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(130,54,252,.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(130,54,252,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+          </div>
+          <div><p style="font-size:15px;font-weight:700;color:#0C0A20;margin:0 0 5px;">Month-to-month, always</p><p style="font-size:13px;color:#6B6B76;line-height:1.55;">No long-term commitments. No exit fees. If Movik doesn't work for your business, you walk away — no questions, no penalties.</p></div>
+        </div>
+        <div data-reveal="" data-reveal-delay=".24" style="opacity:0;transform:translateY(40px);display:flex;gap:18px;align-items:flex-start;padding:22px 24px;background:#F5F3FF;border-radius:12px;border:1px solid #E8E2FF;transition:transform 200ms,box-shadow 200ms;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(130,54,252,.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(130,54,252,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div><p style="font-size:15px;font-weight:700;color:#0C0A20;margin:0 0 5px;">We underwrite the debtor, not you</p><p style="font-size:13px;color:#6B6B76;line-height:1.55;">Your past credit history doesn't determine approval. We evaluate your debtors. 98% of applicants get approved.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMPARISON TABLE ─── -->
+<section style="background:#F7F5FF;padding:100px 56px;border-top:1px solid #EDE9FF;border-bottom:1px solid #EDE9FF;">
+  <div style="max-width:820px;margin:0 auto;">
+    <div data-reveal="" style="opacity:0;transform:translateY(40px);text-align:center;margin-bottom:52px;">
+      <h2 style="font-size:40px;font-weight:800;color:#0C0A20;letter-spacing:-.035em;margin-bottom:10px;">How Movik compares</h2>
+      <p style="font-size:15px;color:#6B6B76;">To what you're probably dealing with right now.</p>
+    </div>
+    <div data-reveal="" data-reveal-delay=".1" style="opacity:0;transform:translateY(40px);background:#fff;border-radius:14px;border:1px solid #E8E4F8;overflow:hidden;box-shadow:0 4px 40px rgba(130,54,252,.07);">
+      <div style="display:grid;grid-template-columns:1fr 190px 190px;background:#0A0818;">
+        <div style="padding:15px 28px;"><span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);">Feature</span></div>
+        <div style="padding:15px 28px;text-align:center;border-left:1px solid rgba(255,255,255,.07);"><span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.4);">Traditional Factor</span></div>
+        <div style="padding:15px 28px;text-align:center;border-left:1px solid rgba(255,255,255,.07);background:rgba(130,54,252,.28);"><span style="font-size:12px;font-weight:700;color:#fff;">Movik</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 190px 190px;border-bottom:1px solid #F0EDF8;">
+        <div style="padding:18px 28px;font-size:14px;font-weight:500;color:#0C0A20;">Rate transparency</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;font-size:13px;color:#E33D3D;font-weight:600;">Hidden fees</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;background:#F5F2FF;font-size:13px;color:#16A34A;font-weight:600;">Flat rate, no surprises</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 190px 190px;border-bottom:1px solid #F0EDF8;">
+        <div style="padding:18px 28px;font-size:14px;font-weight:500;color:#0C0A20;">Contract terms</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;font-size:13px;color:#E33D3D;font-weight:600;">12–24 month lock-in</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;background:#F5F2FF;font-size:13px;color:#16A34A;font-weight:600;">Month-to-month</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 190px 190px;border-bottom:1px solid #F0EDF8;">
+        <div style="padding:18px 28px;font-size:14px;font-weight:500;color:#0C0A20;">Funding speed</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;font-size:13px;color:#E33D3D;font-weight:600;">2–5 business days</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;background:#F5F2FF;font-size:13px;color:#16A34A;font-weight:600;">Under 24 hours</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 190px 190px;border-bottom:1px solid #F0EDF8;">
+        <div style="padding:18px 28px;font-size:14px;font-weight:500;color:#0C0A20;">Approval based on</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;font-size:13px;color:#E33D3D;font-weight:600;">Your credit score</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;background:#F5F2FF;font-size:13px;color:#16A34A;font-weight:600;">Debtor's creditworthiness</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 190px 190px;">
+        <div style="padding:18px 28px;font-size:14px;font-weight:500;color:#0C0A20;">Exit penalty</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;font-size:13px;color:#E33D3D;font-weight:600;">Up to $10,000+</div>
+        <div style="padding:18px 28px;text-align:center;border-left:1px solid #F0EDF8;background:#F5F2FF;font-size:13px;color:#16A34A;font-weight:600;">$0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section id="how-it-works" style="background:#fff;padding:108px 56px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div data-reveal="" style="opacity:0;transform:translateY(40px);text-align:center;margin-bottom:72px;">
+      <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8236FC;margin-bottom:14px;">The Process</p>
+      <h2 style="font-size:48px;font-weight:800;color:#0C0A20;letter-spacing:-.035em;">Funded in three steps.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px;position:relative;">
+      <div data-reveal="" data-reveal-delay=".05" style="opacity:0;transform:translateY(40px);text-align:center;">
+        <div style="width:60px;height:60px;border-radius:50%;background:#0A0818;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative;">
+          <span style="font-size:20px;font-weight:800;color:#8236FC;">1</span>
+          <div style="position:absolute;inset:-2px;border-radius:50%;border:1px solid rgba(130,54,252,.3);"></div>
+        </div>
+        <h3 style="font-size:21px;font-weight:700;color:#0C0A20;margin-bottom:12px;">Submit your load</h3>
+        <p style="font-size:14px;color:#6B6B76;line-height:1.7;">Takes two minutes online. Tell us the debtor, the amount, and the pick-up date. That's it.</p>
+      </div>
+      <div data-reveal="" data-reveal-delay=".15" style="opacity:0;transform:translateY(40px);text-align:center;">
+        <div style="width:60px;height:60px;border-radius:50%;background:#0A0818;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative;">
+          <span style="font-size:20px;font-weight:800;color:#8236FC;">2</span>
+          <div style="position:absolute;inset:-2px;border-radius:50%;border:1px solid rgba(130,54,252,.3);"></div>
+        </div>
+        <h3 style="font-size:21px;font-weight:700;color:#0C0A20;margin-bottom:12px;">We verify the debtor</h3>
+        <p style="font-size:14px;color:#6B6B76;line-height:1.7;">We run a quick credit check on your broker or shipper — not you. Approval in minutes, 98% of the time.</p>
+      </div>
+      <div data-reveal="" data-reveal-delay=".25" style="opacity:0;transform:translateY(40px);text-align:center;">
+        <div style="width:60px;height:60px;border-radius:50%;background:#8236FC;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;box-shadow:0 8px 32px rgba(130,54,252,.4);">
+          <span style="font-size:20px;font-weight:800;color:#fff;">3</span>
+        </div>
+        <h3 style="font-size:21px;font-weight:700;color:#0C0A20;margin-bottom:12px;">Get funded</h3>
+        <p style="font-size:14px;color:#6B6B76;line-height:1.7;">Money hits your account in under 24 hours. Often before you've made the pick-up. No waiting. No chasing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ─── -->
+<section id="apply" style="background:#0A0818;padding:120px 56px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(130,54,252,.3) 0%,transparent 68%);pointer-events:none;"></div>
+  <div style="position:absolute;top:20%;right:10%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(180,130,255,.1) 0%,transparent 70%);animation:glow 9s ease-in-out infinite;pointer-events:none;"></div>
+  <div style="max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:1;">
+    <div data-reveal="" style="opacity:0;transform:translateY(40px);">
+      <h2 style="font-size:54px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:0.95;margin-bottom:22px;">Ready to keep<br>what you earn?</h2>
+      <p style="font-size:17px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:44px;">Apply in under two minutes. No long-term commitment. See your rate before you commit — no credit check required.</p>
+    </div>
+    <div data-reveal="" data-reveal-delay=".12" style="opacity:0;transform:translateY(40px);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:32px;margin-bottom:18px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <input placeholder="Your name" style="height:46px;padding:0 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;transition:border-color 150ms,box-shadow 150ms;" onfocus="this.style.borderColor='#8236FC';this.style.boxShadow='0 0 0 3px rgba(130,54,252,.25)'" onblur="this.style.borderColor='rgba(255,255,255,.1)';this.style.boxShadow='none'">
+        <input placeholder="Company name" style="height:46px;padding:0 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;transition:border-color 150ms,box-shadow 150ms;" onfocus="this.style.borderColor='#8236FC';this.style.boxShadow='0 0 0 3px rgba(130,54,252,.25)'" onblur="this.style.borderColor='rgba(255,255,255,.1)';this.style.boxShadow='none'">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <input placeholder="Phone number" style="height:46px;padding:0 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;transition:border-color 150ms,box-shadow 150ms;" onfocus="this.style.borderColor='#8236FC';this.style.boxShadow='0 0 0 3px rgba(130,54,252,.25)'" onblur="this.style.borderColor='rgba(255,255,255,.1)';this.style.boxShadow='none'">
+        <input placeholder="MC Number" style="height:46px;padding:0 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-family:monospace;transition:border-color 150ms,box-shadow 150ms;" onfocus="this.style.borderColor='#8236FC';this.style.boxShadow='0 0 0 3px rgba(130,54,252,.25)'" onblur="this.style.borderColor='rgba(255,255,255,.1)';this.style.boxShadow='none'">
+      </div>
+      <button id="apply-btn" onclick="submitApply(this)" style="width:100%;height:52px;background:#8236FC;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;transition:background 150ms,transform 200ms,box-shadow 200ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 16px 48px rgba(130,54,252,.5)'" onmouseout="this.style.background='#8236FC';this.style.transform='translateY(0)';this.style.boxShadow='none'">Get My Rate — No Credit Check</button>
+    </div>
+    <p style="font-size:12px;color:rgba(255,255,255,.25);">No commitment required · Cancel anytime · No credit check to see your rate</p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer style="background:#0A0818;border-top:1px solid rgba(255,255,255,.06);padding:36px 56px;">
+  <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;">
+    <img src="https://movik.us/movik_white.avif" alt="Movik" style="height:22px;opacity:0.55;">
+    <p style="font-size:12px;color:rgba(255,255,255,.2);">© 2026 Movik. Pre-pick-up financing for freight brokers and carriers.</p>
+    <div style="display:flex;gap:24px;">
+      <a href="#" style="font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;transition:color 150ms;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.28)'">Privacy</a>
+      <a href="#" style="font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;transition:color 150ms;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.28)'">Terms</a>
+      <a href="#" style="font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;transition:color 150ms;" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.28)'">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function submitApply(btn) {
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
+  btn.style.opacity = '.7';
+  setTimeout(() => {
+    btn.textContent = '✓ We\'ll be in touch shortly!';
+    btn.style.background = '#16A34A';
+    btn.style.opacity = '1';
+    btn.style.boxShadow = '0 8px 28px rgba(22,163,74,.35)';
+  }, 1200);
+}
+</script>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+
+class Component extends DCLogic {
+  componentDidMount() {
+    // ── Nav scroll effect ──
+    this._onScroll = () => {
+      const nav = document.getElementById('main-nav');
+      if (nav) {
+        const s = window.scrollY > 60;
+        nav.style.background = s ? 'rgba(10,8,24,0.92)' : 'transparent';
+        nav.style.backdropFilter = s ? 'blur(18px)' : 'none';
+        nav.style.webkitBackdropFilter = s ? 'blur(18px)' : 'none';
+        nav.style.borderBottom = s ? '1px solid rgba(255,255,255,0.07)' : '1px solid transparent';
+      }
+
+      // Parallax hero
+      const hero = document.getElementById('hero-truck');
+      if (hero && window.scrollY < window.innerHeight * 1.3) {
+        hero.style.transform = `translateY(${window.scrollY * 0.36}px)`;
+      }
+
+      // Mild parallax road photo
+      const road = document.getElementById('road-img');
+      if (road) {
+        const rect = road.parentElement.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const offset = (window.innerHeight - rect.top) * 0.18;
+          road.style.transform = `translateY(${offset}px)`;
+        }
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    // ── Scroll reveal ──
+    this._observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const delay = parseFloat(entry.target.dataset.revealDelay || 0) * 1000;
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, delay);
+        this._observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
+      this._observer.observe(el);
+    });
+
+    // ── Counter animation ──
+    this._counterObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        this._counterObs.unobserve(entry.target);
+        const target = parseFloat(entry.target.dataset.count);
+        const prefix = entry.target.dataset.prefix || '';
+        const suffix = entry.target.dataset.suffix || '';
+        const dur = 2400;
+        const t0 = performance.now();
+        const animate = (now) => {
+          const p = Math.min((now - t0) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const val = target * eased;
+          entry.target.textContent = prefix + (Number.isInteger(target) ? Math.round(val) : val.toFixed(1)) + suffix;
+          if (p < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count]').forEach(el => this._counterObs.observe(el));
+
+    // ── Smooth anchor scroll ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top + window.scrollY - 70;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._observer) this._observer.disconnect();
+    if (this._counterObs) this._counterObs.disconnect();
+  }
+
+  renderVals() { return {}; }
+}
+
+</script>
+</body>
+</html>
