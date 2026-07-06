@@ -106,18 +106,19 @@
     </div>
 
     <!-- Stat cards -->
-    <div style="display:flex;flex-direction:column;gap:10px;padding-top:32px;animation:fadeIn .9s .52s ease both;animation-fill-mode:both;">
-      <div style="background:rgba(255,255,255,.05);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px 26px;animation:drift 10s ease-in-out infinite;">
-        <p style="font-size:38px;font-weight:800;color:#fff;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums;">98%</p>
-        <p style="font-size:10px;font-weight:700;color:rgba(255,255,255,.38);margin-top:7px;text-transform:uppercase;letter-spacing:.09em;">Approval Rate</p>
+    <div style="display:flex;flex-direction:column;gap:16px;padding-top:32px;animation:fadeIn .9s .52s ease both;animation-fill-mode:both;">
+      <div style="background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,.04) 100%);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:32px 36px;animation:drift 10s ease-in-out infinite;box-shadow:0 8px 32px rgba(130,54,252,.15);">
+        <p style="font-size:48px;font-weight:800;color:#fff;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums;">98%</p>
+        <p style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);margin-top:12px;text-transform:uppercase;letter-spacing:.1em;">Approval Rate</p>
+        <p style="font-size:8px;font-weight:500;color:rgba(255,255,255,.32);margin-top:8px;font-style:italic;letter-spacing:.02em;">*We are the #1 business with the fastest approval rate</p>
       </div>
-      <div style="background:rgba(255,255,255,.05);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px 26px;animation:drift 13s ease-in-out infinite 2s;">
-        <p style="font-size:38px;font-weight:800;color:#fff;letter-spacing:-.045em;line-height:1;">&lt;24h</p>
-        <p style="font-size:10px;font-weight:700;color:rgba(255,255,255,.38);margin-top:7px;text-transform:uppercase;letter-spacing:.09em;">Avg. Funding Time</p>
+      <div style="background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,.04) 100%);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:32px 36px;animation:drift 13s ease-in-out infinite 2s;box-shadow:0 8px 32px rgba(130,54,252,.15);">
+        <p style="font-size:48px;font-weight:800;color:#fff;letter-spacing:-.045em;line-height:1;">&lt;24h</p>
+        <p style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);margin-top:12px;text-transform:uppercase;letter-spacing:.1em;">Avg. Funding Time</p>
       </div>
-      <div style="background:rgba(130,54,252,.34);backdrop-filter:blur(36px);-webkit-backdrop-filter:blur(36px);border:1px solid rgba(130,54,252,.5);border-radius:16px;padding:22px 26px;animation:drift2 9s ease-in-out infinite 1s;">
-        <p style="font-size:38px;font-weight:800;color:#D6BFFF;letter-spacing:-.045em;line-height:1;">$0</p>
-        <p style="font-size:10px;font-weight:700;color:rgba(214,191,255,.62);margin-top:7px;text-transform:uppercase;letter-spacing:.09em;">Exit Penalty</p>
+      <div style="background:linear-gradient(135deg,rgba(130,54,252,.4) 0%,rgba(130,54,252,.25) 100%);backdrop-filter:blur(36px);-webkit-backdrop-filter:blur(36px);border:1px solid rgba(130,54,252,.6);border-radius:20px;padding:32px 36px;animation:drift2 9s ease-in-out infinite 1s;box-shadow:0 12px 40px rgba(130,54,252,.25);">
+        <p style="font-size:48px;font-weight:800;color:#E8D9FF;letter-spacing:-.045em;line-height:1;">$0</p>
+        <p style="font-size:11px;font-weight:700;color:rgba(232,217,255,.6);margin-top:12px;text-transform:uppercase;letter-spacing:.1em;">Exit Penalty</p>
       </div>
     </div>
 
@@ -143,8 +144,9 @@
 </div>
 
 <!-- ─── STATS ─── -->
-<section id="stats-section" style="background:#080614;padding:108px clamp(20px,5vw,56px) 116px;">
-  <div style="max-width:1160px;margin:0 auto;">
+<section id="stats-section" style="background:linear-gradient(135deg,rgba(55,8,165,.18) 0%,rgba(70,15,180,.12) 50%,rgba(40,5,130,.08) 100%),url('uploads/hero-truck-poster.jpg') center/cover no-repeat;background-attachment:fixed;padding:108px clamp(20px,5vw,56px) 116px;position:relative;" >
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,6,20,.82) 0%,rgba(8,6,20,.78) 50%,rgba(8,6,20,.85) 100%);z-index:1;pointer-events:none;"></div>
+  <div style="max-width:1160px;margin:0 auto;position:relative;z-index:2;">
     <div class="stat-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px 0;">
       <div data-reveal="" class="stat-cell" style="opacity:0;transform:translateY(44px);text-align:center;padding:0 32px;">
         <p data-count="98" data-suffix="%" style="font-size:clamp(44px,10vw,84px);font-weight:800;color:#fff;letter-spacing:-.055em;font-variant-numeric:tabular-nums;line-height:1;">98%</p>
