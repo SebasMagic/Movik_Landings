@@ -44,8 +44,8 @@
 <!-- HERO -->
 <section style="min-height:100vh;background:#0D0520;position:relative;overflow:hidden;display:flex;align-items:center;padding:140px 56px 300px;isolation:isolate;">
   <div style="position:absolute;inset:0;z-index:0;">
-    <video autoplay="" muted="" loop="" playsinline="" style="width:100%;height:100%;object-fit:cover;display:block;">
-      <source src="uploads/Semi-truck_drives_through_desert_1080p_202607021549-c24f8a5c.mp4" type="video/mp4">
+    <video id="hero-video" muted loop playsinline preload="auto" poster="uploads/hero-truck-poster.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;opacity:1;will-change:auto;">
+      <source src="uploads/hero-desktop.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(125deg,rgba(55,8,165,.93) 0%,rgba(90,25,200,.82) 40%,rgba(60,10,175,.7) 80%,rgba(35,5,120,.55) 100%);"></div>
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 12% 8%,rgba(210,180,255,.22) 0%,transparent 48%);"></div>
@@ -392,6 +392,33 @@ class Component extends DCLogic {
       el.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
       this._obs.observe(el);
     });
+
+    // Hero video responsive + autoplay
+    const video = document.getElementById('hero-video');
+    if (video) {
+      video.muted = true;
+      const setVideoSrc = () => {
+        const isMobile = window.innerWidth < 768;
+        const source = video.querySelector('source');
+        const newSrc = isMobile
+          ? 'uploads/hero-responsive.mp4'
+          : 'uploads/hero-desktop.mp4';
+        if (source && source.src !== newSrc) {
+          source.src = newSrc;
+          video.load();
+        }
+      };
+      setVideoSrc();
+      window.addEventListener('resize', setVideoSrc);
+
+      video.play().catch(() => {
+        const tryPlay = () => {
+          video.play().catch(() => {});
+          ['click', 'touchstart', 'scroll'].forEach(e => document.removeEventListener(e, tryPlay));
+        };
+        ['click', 'touchstart', 'scroll'].forEach(e => document.addEventListener(e, tryPlay, { once: true, passive: true }));
+      });
+    }
 
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
