@@ -418,6 +418,12 @@ class Component extends DCLogic {
         };
         ['click', 'touchstart', 'scroll'].forEach(e => document.addEventListener(e, tryPlay, { once: true, passive: true }));
       });
+
+      // Auto-replay when video ends
+      video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      });
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(a => {
