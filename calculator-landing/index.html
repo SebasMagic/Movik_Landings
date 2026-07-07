@@ -44,7 +44,7 @@
 <section style="min-height:100vh;background:#0D0520;position:relative;overflow:hidden;display:flex;flex-direction:column;padding:110px 48px 48px;isolation:isolate;">
   <div style="position:absolute;inset:0;z-index:0;">
     <video id="hero-video" muted loop playsinline preload="auto" style="width:100%;height:100%;object-fit:cover;object-position:center 45%;display:block;opacity:1;will-change:auto;">
-      <source src="uploads/hero desktop calculator.mp4" type="video/mp4">
+      <source src="uploads/Hero Desktop.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,20,.92) 0%,rgba(8,6,20,.65) 35%,rgba(8,6,20,.80) 62%,rgba(8,6,20,.97) 82%,#080614 100%);"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(55,10,155,.65) 0%,transparent 55%);"></div>
@@ -316,7 +316,7 @@ class Component extends DCLogic {
         const source = video.querySelector('source');
         const newSrc = isMobile
           ? 'uploads/hero responsive.mp4'
-          : 'uploads/hero desktop calculator.mp4';
+          : 'uploads/Hero Desktop.mp4';
         if (source && source.src !== newSrc) {
           source.src = newSrc;
           video.load();
