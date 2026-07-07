@@ -315,7 +315,7 @@ class Component extends DCLogic {
         const isMobile = window.innerWidth < 768;
         const source = video.querySelector('source');
         const newSrc = isMobile
-          ? 'uploads/hero-responsive.mp4'
+          ? 'uploads/hero responsive.mp4'
           : 'uploads/hero desktop calculator.mp4';
         if (source && source.src !== newSrc) {
           source.src = newSrc;
