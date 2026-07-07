@@ -1,0 +1,18 @@
+# Movik
+
+> Movik is a freight factoring and QuickPay platform for the US trucking industry. It pays carriers before pickup — transparent flat rates, 98% approval, funding in under 24 hours, zero hidden fees, no exit penalties, month-to-month terms. Movik also offers a white-label QuickPay program for freight brokers with a revenue share on every funded load.
+
+Contact: WhatsApp +1 (339) 212-1905 · https://movik.us
+
+## Pages
+
+- [Freight Factoring for Carriers](https://movik-landing.vercel.app/carriers/): Pre-pick-up financing for trucking carriers. Key facts: 98% approval rate, funding in under 24 hours, $0 hidden fees, $0 exit penalty.
+- [QuickPay for Freight Brokers](https://movik-landing.vercel.app/broker/): Brokers offer QuickPay to carriers under their own brand. Movik provides the capital, runs KYC/AML and manages collections. Broker revenue share: 20% of Movik's fee on same-day pay, 15% on 7-day, 10% on 15-day — paid monthly once Movik collects. Trusted by 109 active brokers.
+- [Factoring Cost Calculator](https://movik-landing.vercel.app/calculator/): Free tool for carriers — enter weekly invoice volume, number of invoices, factor rate and ACH fee to see exactly how much a factor keeps per week, month and year. No sign-up required.
+
+## Key facts
+
+- Carriers get paid before pickup, not days after delivery.
+- Pricing is a transparent flat rate; no origination, invoice or wire fees.
+- No long-term contracts: month-to-month, $0 exit penalty.
+- Brokers never put up their own capital; Movik funds every load.
