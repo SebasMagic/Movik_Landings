@@ -6,9 +6,9 @@ Contact: WhatsApp +1 (339) 212-1905 · https://movik.us
 
 ## Pages
 
-- [Freight Factoring for Carriers](https://movik-landing.vercel.app/carriers/): Pre-pick-up financing for trucking carriers. Key facts: 98% approval rate, funding in under 24 hours, $0 hidden fees, $0 exit penalty.
-- [QuickPay for Freight Brokers](https://movik-landing.vercel.app/broker/): Brokers offer QuickPay to carriers under their own brand. Movik provides the capital, runs KYC/AML and manages collections. Broker revenue share: 20% of Movik's fee on same-day pay, 15% on 7-day, 10% on 15-day — paid monthly once Movik collects. Trusted by 109 active brokers.
-- [Factoring Cost Calculator](https://movik-landing.vercel.app/calculator/): Free tool for carriers — enter weekly invoice volume, number of invoices, factor rate and ACH fee to see exactly how much a factor keeps per week, month and year. No sign-up required.
+- [Freight Factoring for Carriers](https://movik.us/carriers/): Pre-pick-up financing for trucking carriers. Key facts: 98% approval rate, funding in under 24 hours, $0 hidden fees, $0 exit penalty.
+- [QuickPay for Freight Brokers](https://movik.us/brokers/): Brokers offer QuickPay to carriers under their own brand. Movik provides the capital, runs KYC/AML and manages collections. Broker revenue share: 20% of Movik's fee on same-day pay, 15% on 7-day, 10% on 15-day — paid monthly once Movik collects. Trusted by 109 active brokers.
+- [Factoring Savings Calculator](https://movik.us/factoring-calculator/): Free tool for carriers — enter your invoice volume and fleet size, then choose what percentage of your invoices you finance. Compares a traditional factor financing 100% against Movik at your chosen percentage, at a standard 2% rate. The controls are free to use; the detailed savings breakdown unlocks after you enter your name and work email.
 
 ## Key facts
 

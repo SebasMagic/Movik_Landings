@@ -443,7 +443,7 @@ class Component extends DCLogic {
       amount: 100000,
       trucks: 0,
       hasFactor: true,
-      pct: 70,
+      pct: MIN_PCT,
       unlocked: false
     };
 
@@ -615,8 +615,11 @@ class Component extends DCLogic {
       });
     });
 
-    $('invoice-volume').value = '100,000';
-    $('pct-range').value = String(state.pct);
+    /* Seed the volume field from state rather than a literal: these inputs
+       carry no value attribute (React would re-assert it on every re-render
+       and desync them from state), so the controller owns their initial
+       display. render() seeds #pct-range. */
+    $('invoice-volume').value = C.formatDigits(String(state.amount)).text;
 
     render();
   }
