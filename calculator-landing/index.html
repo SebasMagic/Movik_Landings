@@ -298,15 +298,15 @@
     </div>
     <div data-reveal="" data-reveal-delay=".08" style="opacity:0;transform:translateY(36px);">
       <div style="border-top:1px solid #E4DEFF;">
-        <button onclick="toggleFaq(0)" style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Do I have to sign up?</span><svg id="faq-icon-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+        <button style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Do I have to sign up?</span><svg id="faq-icon-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
         <div id="faq-body-0" style="overflow:hidden;max-height:0;transition:max-height 350ms cubic-bezier(0.16,1,0.3,1);"><p style="font-size:15px;color:#6B6B76;line-height:1.7;padding-bottom:22px;">Not to see your numbers. Only if you want us to help with your real figures in a WhatsApp conversation.</p></div>
       </div>
       <div style="border-top:1px solid #E4DEFF;">
-        <button onclick="toggleFaq(1)" style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Where do the numbers come from?</span><svg id="faq-icon-1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+        <button style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Where do the numbers come from?</span><svg id="faq-icon-1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
         <div id="faq-body-1" style="overflow:hidden;max-height:0;transition:max-height 350ms cubic-bezier(0.16,1,0.3,1);"><p style="font-size:15px;color:#6B6B76;line-height:1.7;padding-bottom:22px;">From what you enter. It's your operation, not our estimate. We don't see your data and we don't store it.</p></div>
       </div>
       <div style="border-top:1px solid #E4DEFF;border-bottom:1px solid #E4DEFF;">
-        <button onclick="toggleFaq(2)" style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Are the $5,760 and the $53,000 the same thing?</span><svg id="faq-icon-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+        <button style="width:100%;padding:22px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;text-align:left;gap:16px;"><span style="font-size:16px;font-weight:700;color:#0C0A20;">Are the $5,760 and the $53,000 the same thing?</span><svg id="faq-icon-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8236FC" stroke-width="2.5" style="flex-shrink:0;transition:transform 250ms;"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
         <div id="faq-body-2" style="overflow:hidden;max-height:0;transition:max-height 350ms cubic-bezier(0.16,1,0.3,1);"><p style="font-size:15px;color:#6B6B76;line-height:1.7;padding-bottom:22px;">No. The first is <strong>ACH alone for the year</strong>. The second is <strong>everything the factor keeps</strong> (their rate + ACH). Two different totals. Example values are illustrative — your result depends on the data you enter.</p></div>
       </div>
     </div>
@@ -611,14 +611,12 @@ class Component extends DCLogic {
 
   /* ---------------------------------------------------------------------
    * FAQ accordion binding.
-   * The buttons carry a plain onclick="toggleFaq(i)" attribute in the
-   * source markup, but React strips inline event attributes when it
-   * re-renders the <x-dc> subtree, so that attribute is inert once the
-   * page has remounted. Bind by index here instead, the same way the
-   * calculator controller binds in _initCalculator(), since this is the
-   * only binding that survives the remount. Located via the button that
-   * immediately precedes each #faq-body-N node, rather than relying on
-   * the stripped onclick attribute.
+   * The buttons deliberately carry no inline event handlers, since the
+   * runtime passes markup attributes as React props — a string listener
+   * would make React throw (error #231). Bind by index here instead,
+   * the same way the calculator controller binds in _initCalculator(),
+   * since this is the only binding that survives the remount. Located via
+   * the button that immediately precedes each #faq-body-N node.
    * ------------------------------------------------------------------- */
   _initFaq() {
     var openFaq = null;
