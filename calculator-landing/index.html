@@ -426,6 +426,7 @@ class Component extends DCLogic {
     }
 
     this._initCalculator();
+    this._initFaq();
   }
 
   componentWillUnmount() {
@@ -513,6 +514,7 @@ class Component extends DCLogic {
       $('seg-no').classList.toggle('is-active', !state.hasFactor);
 
       $('pct-label').textContent = state.pct + '%';
+      $('pct-range').value = String(state.pct);
       tickEls.forEach(function (t) {
         t.el.classList.toggle('is-active', t.value === state.pct);
       });
@@ -605,6 +607,47 @@ class Component extends DCLogic {
     $('lead-email').addEventListener('input', clearLeadError);
 
     render();
+  }
+
+  /* ---------------------------------------------------------------------
+   * FAQ accordion binding.
+   * The buttons carry a plain onclick="toggleFaq(i)" attribute in the
+   * source markup, but React strips inline event attributes when it
+   * re-renders the <x-dc> subtree, so that attribute is inert once the
+   * page has remounted. Bind by index here instead, the same way the
+   * calculator controller binds in _initCalculator(), since this is the
+   * only binding that survives the remount. Located via the button that
+   * immediately precedes each #faq-body-N node, rather than relying on
+   * the stripped onclick attribute.
+   * ------------------------------------------------------------------- */
+  _initFaq() {
+    var openFaq = null;
+    for (var i = 0; i < 3; i++) {
+      (function (i) {
+        var body = document.getElementById('faq-body-' + i);
+        var icon = document.getElementById('faq-icon-' + i);
+        var btn = body ? body.previousElementSibling : null;
+        if (!body || !icon || !btn) return;
+
+        btn.addEventListener('click', function () {
+          if (openFaq !== null && openFaq !== i) {
+            var prevBody = document.getElementById('faq-body-' + openFaq);
+            var prevIcon = document.getElementById('faq-icon-' + openFaq);
+            if (prevBody) prevBody.style.maxHeight = '0';
+            if (prevIcon) prevIcon.style.transform = 'rotate(0deg)';
+          }
+          if (openFaq === i) {
+            body.style.maxHeight = '0';
+            icon.style.transform = 'rotate(0deg)';
+            openFaq = null;
+          } else {
+            body.style.maxHeight = body.scrollHeight + 'px';
+            icon.style.transform = 'rotate(180deg)';
+            openFaq = i;
+          }
+        });
+      })(i);
+    }
   }
 }
 
