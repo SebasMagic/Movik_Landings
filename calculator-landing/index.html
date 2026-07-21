@@ -342,179 +342,6 @@
 </footer>
 
 <script>
-(function () {
-  var C = window.MovikCalc;
-  var MIN_PCT = 70;
-  var MAX_PCT = 100;
-  var LEADS_KEY = 'movik_calc_leads';
-
-  var state = {
-    period: 'monthly',
-    amount: 100000,
-    trucks: 0,
-    hasFactor: true,
-    pct: 70,
-    unlocked: false
-  };
-
-  function $(id) { return document.getElementById(id); }
-
-  var tickEls = [];
-
-  /* Swap this for a network call when there is somewhere real to send leads. */
-  function saveLead(lead) {
-    try {
-      var existing = JSON.parse(localStorage.getItem(LEADS_KEY) || '[]');
-      if (!Array.isArray(existing)) existing = [];
-      existing.push(lead);
-      localStorage.setItem(LEADS_KEY, JSON.stringify(existing));
-    } catch (err) {
-      console.warn('[movik-calc] could not persist lead:', err);
-    }
-    console.log('[movik-calc] Lead captured:', lead);
-  }
-
-  function bindDigitInput(el, key) {
-    el.addEventListener('input', function () {
-      var r = C.formatDigits(el.value, el.selectionStart);
-      el.value = r.text;
-      el.setSelectionRange(r.caret, r.caret);
-      state[key] = r.value;
-      render();
-    });
-  }
-
-  function buildTicks() {
-    var row = $('tick-row');
-    row.innerHTML = '';
-    tickEls = C.ticks(MIN_PCT, MAX_PCT).map(function (v) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'tick';
-      b.textContent = v + '%';
-      b.addEventListener('click', function () {
-        state.pct = v;
-        $('pct-range').value = String(v);
-        render();
-      });
-      row.appendChild(b);
-      return { value: v, el: b };
-    });
-  }
-
-  function render() {
-    var r = C.computeSavings({ amount: state.amount, period: state.period, pct: state.pct });
-
-    $('seg-monthly').classList.toggle('is-active', state.period === 'monthly');
-    $('seg-annual').classList.toggle('is-active', state.period === 'annual');
-    $('seg-yes').classList.toggle('is-active', state.hasFactor);
-    $('seg-no').classList.toggle('is-active', !state.hasFactor);
-
-    $('pct-label').textContent = state.pct + '%';
-    tickEls.forEach(function (t) {
-      t.el.classList.toggle('is-active', t.value === state.pct);
-    });
-
-    $('r-trad-label').textContent = state.hasFactor
-      ? 'What you pay today (100% financed)'
-      : 'Market-standard factor (100% financed)';
-    $('r-trad-value').textContent = C.formatUSD(r.traditional) + '/mo';
-    $('r-movik-label').textContent = 'With Movik (' + state.pct + '% financed)';
-    $('r-movik-value').textContent = C.formatUSD(r.movik) + '/mo';
-    $('r-movik-bar').style.width = state.pct + '%';
-    $('r-badge').textContent = C.formatUSD(r.savings) + '/mo · ' + Math.round(r.savingsPct) + '% less';
-
-    if (state.trucks > 0) {
-      $('r-per-truck').style.display = 'block';
-      $('r-per-truck-value').textContent = C.formatUSD(r.savings / state.trucks);
-    } else {
-      $('r-per-truck').style.display = 'none';
-    }
-
-    $('results-inner').classList.toggle('is-locked', !state.unlocked);
-  }
-
-  function clearLeadError() {
-    $('lead-error').style.display = 'none';
-    $('lead-name').classList.remove('has-error');
-    $('lead-email').classList.remove('has-error');
-  }
-
-  function submitLead() {
-    var name = $('lead-name').value.trim();
-    var email = $('lead-email').value.trim();
-    var nameOk = name.length > 0;
-    var emailOk = C.isValidEmail(email);
-
-    $('lead-name').classList.toggle('has-error', !nameOk);
-    $('lead-email').classList.toggle('has-error', !emailOk);
-
-    if (!nameOk || !emailOk) {
-      $('lead-error').style.display = 'block';
-      return;
-    }
-
-    clearLeadError();
-
-    var result = C.computeSavings({ amount: state.amount, period: state.period, pct: state.pct });
-    saveLead(C.buildLead({
-      leadName: name,
-      leadEmail: email,
-      leadPhone: $('lead-phone').value,
-      trucks: state.trucks,
-      period: state.period,
-      amount: state.amount,
-      pct: state.pct
-    }, result, new Date().toISOString()));
-
-    state.unlocked = true;
-    $('gate-form').style.display = 'none';
-    $('gate-cta').style.display = 'none';
-    $('result-cta').style.display = 'block';
-    render();
-  }
-
-  function init() {
-    if (!C || !$('pct-range')) return;
-
-    buildTicks();
-
-    $('seg-monthly').addEventListener('click', function () { state.period = 'monthly'; render(); });
-    $('seg-annual').addEventListener('click', function () { state.period = 'annual'; render(); });
-    $('seg-yes').addEventListener('click', function () { state.hasFactor = true; render(); });
-    $('seg-no').addEventListener('click', function () { state.hasFactor = false; render(); });
-
-    bindDigitInput($('invoice-volume'), 'amount');
-    bindDigitInput($('truck-count'), 'trucks');
-
-    $('pct-range').addEventListener('input', function (e) {
-      state.pct = parseInt(e.target.value, 10);
-      render();
-    });
-
-    $('gate-open').addEventListener('click', function () {
-      $('gate-cta').style.display = 'none';
-      $('gate-form').style.display = 'block';
-    });
-    $('gate-back').addEventListener('click', function () {
-      $('gate-form').style.display = 'none';
-      $('gate-cta').style.display = 'block';
-      clearLeadError();
-    });
-    $('lead-submit').addEventListener('click', submitLead);
-    $('lead-name').addEventListener('input', clearLeadError);
-    $('lead-email').addEventListener('input', clearLeadError);
-
-    render();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-
 let openFaq = null;
 function toggleFaq(i) {
   if (openFaq !== null && openFaq !== i) {
@@ -597,6 +424,8 @@ class Component extends DCLogic {
         video.play().catch(() => {});
       });
     }
+
+    this._initCalculator();
   }
 
   componentWillUnmount() {
@@ -605,6 +434,178 @@ class Component extends DCLogic {
   }
 
   renderVals() { return {}; }
+
+  /* ---------------------------------------------------------------------
+   * Savings calculator controller.
+   * Bound here (not at parse time) because boot() in support.js replaces
+   * the whole <x-dc> subtree with React-rendered nodes once React loads.
+   * componentDidMount runs after that remount, so document.getElementById
+   * here returns the live nodes that are actually on screen.
+   * ------------------------------------------------------------------- */
+  _initCalculator() {
+    var C = window.MovikCalc;
+    var MIN_PCT = 70;
+    var MAX_PCT = 100;
+    var LEADS_KEY = 'movik_calc_leads';
+
+    function $(id) { return document.getElementById(id); }
+
+    if (!C || !$('pct-range')) return;
+
+    var state = {
+      period: 'monthly',
+      amount: 100000,
+      trucks: 0,
+      hasFactor: true,
+      pct: 70,
+      unlocked: false
+    };
+
+    var tickEls = [];
+
+    /* Swap this for a network call when there is somewhere real to send leads. */
+    function saveLead(lead) {
+      try {
+        var existing = JSON.parse(localStorage.getItem(LEADS_KEY) || '[]');
+        if (!Array.isArray(existing)) existing = [];
+        existing.push(lead);
+        localStorage.setItem(LEADS_KEY, JSON.stringify(existing));
+      } catch (err) {
+        console.warn('[movik-calc] could not persist lead:', err);
+      }
+      console.log('[movik-calc] Lead captured:', lead);
+    }
+
+    function bindDigitInput(el, key) {
+      el.addEventListener('input', function () {
+        var r = C.formatDigits(el.value, el.selectionStart);
+        el.value = r.text;
+        el.setSelectionRange(r.caret, r.caret);
+        state[key] = r.value;
+        render();
+      });
+    }
+
+    function buildTicks() {
+      var row = $('tick-row');
+      row.innerHTML = '';
+      tickEls = C.ticks(MIN_PCT, MAX_PCT).map(function (v) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'tick';
+        b.textContent = v + '%';
+        b.addEventListener('click', function () {
+          state.pct = v;
+          $('pct-range').value = String(v);
+          render();
+        });
+        row.appendChild(b);
+        return { value: v, el: b };
+      });
+    }
+
+    function render() {
+      var r = C.computeSavings({ amount: state.amount, period: state.period, pct: state.pct });
+
+      $('seg-monthly').classList.toggle('is-active', state.period === 'monthly');
+      $('seg-annual').classList.toggle('is-active', state.period === 'annual');
+      $('seg-yes').classList.toggle('is-active', state.hasFactor);
+      $('seg-no').classList.toggle('is-active', !state.hasFactor);
+
+      $('pct-label').textContent = state.pct + '%';
+      tickEls.forEach(function (t) {
+        t.el.classList.toggle('is-active', t.value === state.pct);
+      });
+
+      $('r-trad-label').textContent = state.hasFactor
+        ? 'What you pay today (100% financed)'
+        : 'Market-standard factor (100% financed)';
+      $('r-trad-value').textContent = C.formatUSD(r.traditional) + '/mo';
+      $('r-movik-label').textContent = 'With Movik (' + state.pct + '% financed)';
+      $('r-movik-value').textContent = C.formatUSD(r.movik) + '/mo';
+      $('r-movik-bar').style.width = state.pct + '%';
+      $('r-badge').textContent = C.formatUSD(r.savings) + '/mo · ' + Math.round(r.savingsPct) + '% less';
+
+      if (state.trucks > 0) {
+        $('r-per-truck').style.display = 'block';
+        $('r-per-truck-value').textContent = C.formatUSD(r.savings / state.trucks);
+      } else {
+        $('r-per-truck').style.display = 'none';
+      }
+
+      $('results-inner').classList.toggle('is-locked', !state.unlocked);
+    }
+
+    function clearLeadError() {
+      $('lead-error').style.display = 'none';
+      $('lead-name').classList.remove('has-error');
+      $('lead-email').classList.remove('has-error');
+    }
+
+    function submitLead() {
+      var name = $('lead-name').value.trim();
+      var email = $('lead-email').value.trim();
+      var nameOk = name.length > 0;
+      var emailOk = C.isValidEmail(email);
+
+      $('lead-name').classList.toggle('has-error', !nameOk);
+      $('lead-email').classList.toggle('has-error', !emailOk);
+
+      if (!nameOk || !emailOk) {
+        $('lead-error').style.display = 'block';
+        return;
+      }
+
+      clearLeadError();
+
+      var result = C.computeSavings({ amount: state.amount, period: state.period, pct: state.pct });
+      saveLead(C.buildLead({
+        leadName: name,
+        leadEmail: email,
+        leadPhone: $('lead-phone').value,
+        trucks: state.trucks,
+        period: state.period,
+        amount: state.amount,
+        pct: state.pct
+      }, result, new Date().toISOString()));
+
+      state.unlocked = true;
+      $('gate-form').style.display = 'none';
+      $('gate-cta').style.display = 'none';
+      $('result-cta').style.display = 'block';
+      render();
+    }
+
+    buildTicks();
+
+    $('seg-monthly').addEventListener('click', function () { state.period = 'monthly'; render(); });
+    $('seg-annual').addEventListener('click', function () { state.period = 'annual'; render(); });
+    $('seg-yes').addEventListener('click', function () { state.hasFactor = true; render(); });
+    $('seg-no').addEventListener('click', function () { state.hasFactor = false; render(); });
+
+    bindDigitInput($('invoice-volume'), 'amount');
+    bindDigitInput($('truck-count'), 'trucks');
+
+    $('pct-range').addEventListener('input', function (e) {
+      state.pct = parseInt(e.target.value, 10);
+      render();
+    });
+
+    $('gate-open').addEventListener('click', function () {
+      $('gate-cta').style.display = 'none';
+      $('gate-form').style.display = 'block';
+    });
+    $('gate-back').addEventListener('click', function () {
+      $('gate-form').style.display = 'none';
+      $('gate-cta').style.display = 'block';
+      clearLeadError();
+    });
+    $('lead-submit').addEventListener('click', submitLead);
+    $('lead-name').addEventListener('input', clearLeadError);
+    $('lead-email').addEventListener('input', clearLeadError);
+
+    render();
+  }
 }
 
 </script>
