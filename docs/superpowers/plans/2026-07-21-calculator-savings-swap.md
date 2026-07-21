@@ -20,6 +20,9 @@
 - Brand values already in the file: purple `#8236FC`, light purple `#B090FF`, destructive `#E33D3D`, panel `rgba(12,8,32,.82)`, hairline `rgba(255,255,255,.1)`.
 - Reuse the existing CSS classes `.calc-card`, `.calc-input`, `.calc-input-wrap`, `.calc-prefix`, `.calc-suffix`, `.with-prefix`, `.with-suffix`, `.grid-2`. Do not restyle them.
 - `deploy/` is gitignored build output. Do not edit it; it is refreshed by copying `calculator-landing/` wholesale.
+- **The controller must bind its DOM handlers inside `componentDidMount()` of the existing `class Component extends DCLogic` block.** Binding at parse time from a plain `<script>` does not work on this page: `support.js` `boot()` runs `dc.replaceWith(hostEl)` (`support.js:166`), replacing the entire `<x-dc>` subtree with React-rendered nodes once React loads from unpkg. Any `addEventListener` attached before that is left on discarded nodes and the page goes inert. The original page never used `addEventListener` on markup inside `<x-dc>` — it used inline `onclick=` (which survives, because React re-renders the attribute) and did all node binding from `componentDidMount`. Follow that pattern.
+
+  *Corrected 2026-07-21 after the Task 5 review caught this. Task 5's original text prescribed a parse-time IIFE; the amendment below supersedes it.*
 
 ---
 
