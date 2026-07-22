@@ -1,0 +1,26 @@
+{
+  "redirects": [
+    { "source": "/broker", "destination": "/brokers/", "permanent": true },
+    { "source": "/broker/", "destination": "/brokers/", "permanent": true },
+    { "source": "/calculator", "destination": "/factoring-calculator/", "permanent": true },
+    { "source": "/calculator/", "destination": "/factoring-calculator/", "permanent": true },
+
+    { "source": "/carriers", "destination": "/carriers/", "permanent": false },
+    { "source": "/brokers", "destination": "/brokers/", "permanent": false },
+    { "source": "/factoring-calculator", "destination": "/factoring-calculator/", "permanent": false },
+    { "source": "/escape-guide", "destination": "/escape-guide/", "permanent": false },
+
+    { "source": "/es/carriers", "destination": "/es/carriers/", "permanent": false },
+    { "source": "/es/brokers", "destination": "/es/brokers/", "permanent": false },
+    { "source": "/es/escape-guide", "destination": "/es/escape-guide/", "permanent": false },
+    { "source": "/es/factoring-calculator", "destination": "/es/factoring-calculator/", "permanent": false }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    }
+  ]
+}

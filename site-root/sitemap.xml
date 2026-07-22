@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!--
+  Production sitemap for movik.us. NOT deployed to the Vercel staging site
+  (staging is noindex on purpose). Ship this only when the pages move.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://movik-landing.vercel.app/</loc>
+    <loc>https://movik.us/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://movik-landing.vercel.app/carriers/</loc>
+    <loc>https://movik.us/carriers/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://movik-landing.vercel.app/broker/</loc>
+    <loc>https://movik.us/brokers/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://movik-landing.vercel.app/calculator/</loc>
+    <loc>https://movik.us/escape-guide/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://movik.us/escape-guide/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://movik.us/es/escape-guide/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://movik.us/escape-guide/"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://movik.us/es/escape-guide/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://movik.us/escape-guide/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://movik.us/es/escape-guide/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://movik.us/escape-guide/"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://movik.us/factoring-calculator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

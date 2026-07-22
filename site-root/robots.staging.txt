@@ -1,0 +1,12 @@
+# STAGING — movik-landing.vercel.app
+#
+# These pages ship to movik.us. This preview URL must stay out of every index,
+# or it competes with the real site once the pages move and Google has to guess
+# which copy is canonical.
+#
+# The production version of this file (Allow: / plus the sitemap, including the
+# AI crawler allowances) lives in site-root/robots.txt. Do NOT copy that file
+# over this one while the site is still staging.
+
+User-agent: *
+Disallow: /

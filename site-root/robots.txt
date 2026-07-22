@@ -20,4 +20,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://movik-landing.vercel.app/sitemap.xml
+Sitemap: https://movik.us/sitemap.xml
