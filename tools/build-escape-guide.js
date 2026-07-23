@@ -84,7 +84,7 @@ function localizeHead(html) {
 }
 
 // ── pull the page's own script out and run it in a stub DOM ──────────────────
-const inline = src.match(/<script>\n([\s\S]*?)<\/script>/)[1];
+const inline = src.match(/<script>\r?\n([\s\S]*?)<\/script>/)[1];
 
 function renderFor(lang) {
   const captured = {};
@@ -156,11 +156,11 @@ for (const lang of ['en', 'es']) {
   // 3. language + canonical + hreflang
   h = h.replace(/<html lang="[^"]*">/, `<html lang="${lang}">`);
   h = h.split('https://movik-landing.vercel.app/escape-guide/').join(URLS[lang]);
-  h = h.replace(
-    /(<link rel="canonical"[^>]*>\n)/,
-    `$1<link rel="alternate" hreflang="en" href="${URLS.en}">\n` +
-    `<link rel="alternate" hreflang="es" href="${URLS.es}">\n` +
-    `<link rel="alternate" hreflang="x-default" href="${URLS.en}">\n`
+  // newline-agnostic: sources are CRLF, a `>\n` match would miss and drop hreflang
+  h = h.replace(/<link rel="canonical"[^>]*>/, m =>
+    `${m}\n<link rel="alternate" hreflang="en" href="${URLS.en}">` +
+    `\n<link rel="alternate" hreflang="es" href="${URLS.es}">` +
+    `\n<link rel="alternate" hreflang="x-default" href="${URLS.en}">`
   );
 
   // 4. toggle becomes real navigation between the two URLs

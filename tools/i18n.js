@@ -142,7 +142,9 @@ if (cmd === 'extract') {
     if (cmd === 'build') {
       const dir = path.join(ROOT, path.dirname(cfg.src), 'dist');
       fs.mkdirSync(dir, { recursive: true });
-      fs.writeFileSync(path.join(dir, `${cfg.slug}-ENG.html`), src);
+      // hreflang must be reciprocal: BOTH pages carry the same trio, or Google
+      // ignores the annotation entirely and treats the languages as unrelated.
+      fs.writeFileSync(path.join(dir, `${cfg.slug}-ENG.html`), withHreflang(src, cfg.slug));
       fs.writeFileSync(path.join(dir, `${cfg.slug}-ESP.html`), localize(html, cfg.slug));
       console.log(`    -> dist/${cfg.slug}-ENG.html, dist/${cfg.slug}-ESP.html`);
     }
@@ -152,18 +154,35 @@ if (cmd === 'extract') {
   console.log('usage: node tools/i18n.js extract <file> | build [page] | check [page]');
 }
 
-/** Spanish page: lang attr, canonical/og:url under /es/, hreflang pair. */
+/** The reciprocal hreflang trio for a slug — identical on both language pages. */
+function hreflangBlock(slug) {
+  const en = `https://movik.us/${slug}/`;
+  const es = `https://movik.us/es/${slug}/`;
+  return `<link rel="alternate" hreflang="en" href="${en}">\n` +
+         `<link rel="alternate" hreflang="es" href="${es}">\n` +
+         `<link rel="alternate" hreflang="x-default" href="${en}">\n`;
+}
+
+// Append the hreflang trio right after the canonical tag. Newline-agnostic on
+// purpose: git normalises these sources to CRLF, so a `>\n` match would silently
+// miss and ship pages with no hreflang.
+function injectHreflang(html, slug) {
+  return html.replace(/<link rel="canonical"[^>]*>/, m => `${m}\n${hreflangBlock(slug).trimEnd()}`);
+}
+
+/** English page: source markup + reciprocal hreflang. */
+function withHreflang(html, slug) {
+  return injectHreflang(html, slug);
+}
+
+/** Spanish page: lang attr, canonical/og:url under /es/, plus the hreflang trio. */
 function localize(html, slug) {
   const en = `https://movik.us/${slug}/`;
   const es = `https://movik.us/es/${slug}/`;
-  let s = html
+  const s = html
     .replace(/<html lang="[^"]*">/, '<html lang="es">')
     .split(en).join(es);
-  const hreflang =
-    `<link rel="alternate" hreflang="en" href="${en}">\n` +
-    `<link rel="alternate" hreflang="es" href="${es}">\n` +
-    `<link rel="alternate" hreflang="x-default" href="${en}">\n`;
-  return s.replace(/(<link rel="canonical"[^>]*>\n)/, `$1${hreflang}`);
+  return injectHreflang(s, slug);
 }
 
 module.exports = { findStrings, translate };
