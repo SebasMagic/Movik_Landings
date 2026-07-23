@@ -134,29 +134,36 @@ visualmente**. Revisar sobre todo: la línea punteada que conecta los 3 pasos de
 escape guide (`calc()` sobre el grid, puede necesitar ajuste), y la nueva home hub
 en móvil.
 
-### 3. El PDF en inglés choca con la regla de compliance
+### 3. El PDF inglés se regeneró — falta el visto bueno de diseño
 
-Los dos PDFs de la guía **no son traducciones, son documentos distintos**:
+**Resuelto en lo funcional, pendiente de aprobación estética.**
 
-| | Español | Inglés |
-|---|---|---|
-| Título | Cómo salir de tu factoring sin quedarte sin caja | How to Escape Your Factoring Contract |
-| Secciones | 8 | 5 |
-| Menciona Movik | sí | no |
-| Menciona UCC | no | **sí, 4 veces** |
+El PDF inglés original (`Carrier Playbook`, 5 secciones) rompía la regla de
+compliance del brief: mencionaba UCC 5 veces y traía porcentajes de ejemplo
+(`3%`, `2.5%`, `4.5%`). El cliente lo reexportó el 2026-07-22, pero el texto
+salió idéntico — el problema seguía.
 
-El brief de copy pedía explícitamente cero menciones de UCC y ningún porcentaje de
-fee. El PDF español cumple; el inglés trae UCC (5 veces) y porcentajes de ejemplo
-(`3%`, `2.5%`, `4.5%`). La landing ya describe correctamente a cada uno por
-separado, pero **el documento inglés necesita una revisión de compliance** antes
-de mandarle tráfico.
+Se reemplazó por uno nuevo generado desde
+`escape-guide-landing/pdf-src/escape-guide-EN.html`, con el copy inglés de las
+8 secciones del brief (el mismo esquema que la guía española, que sí cumplía).
+Verificado sobre el archivo que sirve la web: **cero UCC, cero porcentajes, cero
+palabras prohibidas, 8/8 secciones**. Pesa 72 KB contra 1.5 MB del anterior,
+porque lleva texto real en vez de imágenes — además ahora es indexable y
+accesible.
 
-**Nota (2026-07-22):** el cliente reexportó `carriers-landing/Escape Guide.pdf`,
-pero el texto es **idéntico** al desplegado — las menciones de UCC y los
-porcentajes siguen ahí. Cambió a nivel binario (imágenes), no el contenido. Si la
-intención era quitar el UCC, ese cambio no quedó en el archivo. El PDF que sirve la
-web sigue siendo el mismo; no lo reemplacé porque no aportaba nada nuevo y mantenía
-el problema de compliance.
+La landing inglesa se actualizó en el mismo movimiento (portada, índice de 8,
+`numberOfPages`) para que describa el documento que de verdad entrega.
+
+**Lo que falta:** el PDF nuevo es *tipográfico*, no la pieza ilustrada del
+diseñador. Funciona y cumple, pero si se quiere la versión con el diseño
+original hay que rehacerla **sin UCC ni porcentajes** y reemplazar
+`escape-guide-landing/uploads/Movik-Escape-Guide-EN.pdf`.
+
+```bash
+# regenerar tras editar el HTML fuente
+"/c/Program Files/Google/Chrome/Application/chrome.exe" --headless \
+  --no-pdf-header-footer --print-to-pdf=<salida.pdf> file:///<ruta>/escape-guide-EN.html
+```
 
 ---
 

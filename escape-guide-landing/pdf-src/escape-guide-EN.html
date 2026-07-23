@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How to Leave Your Factor Without Losing Cash Flow — Movik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<style>
+  /*
+   * Print source for the English Escape Guide PDF.
+   * Mirrors the compliant Spanish guide: same 8 sections, no UCC, no fee
+   * percentages. Export with:
+   *   chrome --headless --print-to-pdf=... --no-pdf-header-footer
+   */
+  @page { size: letter; margin: 0; }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    color: #14102B; background: #fff;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    font-size: 10.5pt; line-height: 1.5;
+  }
+  .page {
+    width: 8.5in; height: 11in; position: relative; overflow: hidden;
+    padding: 0.62in 0.68in 0.5in;
+    display: flex; flex-direction: column;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ---- cover band ---- */
+  .band {
+    position: absolute; inset: 0 0 auto 0; height: 3.45in;
+    background: linear-gradient(125deg,#2A0C6B 0%,#4A16B8 48%,#1B0847 100%);
+  }
+  .band::after {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse at 82% 14%, rgba(190,150,255,.32) 0%, transparent 58%);
+  }
+  .band-inner { position: relative; z-index: 2; color:#fff; padding: 0.62in 0.68in 0; }
+
+  .eyebrow { font-size:7.5pt; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:rgba(196,168,255,.9); }
+  h1 { font-size:30pt; font-weight:800; letter-spacing:-.03em; line-height:1.06; margin:.16in 0 .1in; }
+  .lede { font-size:11pt; color:rgba(255,255,255,.75); line-height:1.5; max-width:5.6in; }
+  .rule { width:.42in; height:2.5px; background:#B090FF; margin:.16in 0; }
+
+  /* ---- body ---- */
+  .content { margin-top: 3.0in; }
+  .intro { font-size:10.5pt; color:#3B3557; line-height:1.62; margin-bottom:.2in; }
+  .intro strong { color:#14102B; font-weight:700; }
+
+  h2 {
+    font-size:12.5pt; font-weight:800; letter-spacing:-.015em; color:#14102B;
+    margin:.2in 0 .07in; display:flex; align-items:baseline; gap:.09in;
+  }
+  h2 .n { font-size:9pt; font-weight:800; color:#8236FC; font-variant-numeric:tabular-nums; }
+  h2 + p { font-size:10pt; color:#3B3557; line-height:1.6; }
+  p + p { margin-top:.06in; }
+
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.11in; margin-top:.1in; }
+  .cell { background:#F6F3FF; border:1px solid #E4DCFF; border-radius:7px; padding:.11in .12in; }
+  .cell b { display:block; font-size:9.5pt; font-weight:700; color:#14102B; margin-bottom:.03in; }
+  .cell span { font-size:8.8pt; color:#5A5478; line-height:1.45; }
+
+  .note {
+    background:#F6F3FF; border-left:3px solid #8236FC; border-radius:0 7px 7px 0;
+    padding:.12in .14in; margin-top:.1in; font-size:9.6pt; color:#3B3557; line-height:1.58;
+  }
+  .note b { color:#14102B; }
+
+  ul { list-style:none; margin-top:.08in; }
+  li { font-size:9.8pt; color:#3B3557; line-height:1.5; padding-left:.24in; position:relative; margin-bottom:.055in; }
+  li::before { content:'✓'; position:absolute; left:0; color:#8236FC; font-weight:800; font-size:9pt; }
+
+  .foot {
+    margin-top:auto; padding-top:.14in; border-top:1px solid #E9E4F7;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:7.5pt; color:#8A85A3; letter-spacing:.02em;
+  }
+  .foot b { color:#8236FC; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+
+  /* ---- closing block ---- */
+  .cta {
+    margin-top:.16in; background:linear-gradient(125deg,#2A0C6B 0%,#4A16B8 100%);
+    border-radius:10px; padding:.2in .22in; color:#fff;
+  }
+  .cta h3 { font-size:13pt; font-weight:800; letter-spacing:-.02em; margin-bottom:.06in; }
+  .cta p { font-size:9.6pt; color:rgba(255,255,255,.8); line-height:1.55; }
+  .cta .wa { margin-top:.12in; font-size:11pt; font-weight:800; letter-spacing:-.01em; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ PAGE 1 ══════════ -->
+<section class="page">
+  <div class="band">
+    <div class="band-inner">
+      <p class="eyebrow">Carrier Guide · By truckers, for truckers</p>
+      <h1>How to leave your factor<br>without losing cash flow.</h1>
+      <div class="rule"></div>
+      <p class="lede">A short guide to getting your cash back under control: your reserve, your money, and numbers you can actually read.</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <p class="intro">Switching factors scares people for one reason: the day you drop one and the new one hasn't kicked in, you run out of cash. So most people put up with it and keep paying charges that don't add up, year after year. <strong>This guide gets you out without that gap</strong> — you get your reserve back, you close your contract properly, and you keep getting paid with no dead day in between.</p>
+
+    <h2><span class="n">01</span> Before you move: understand your situation</h2>
+    <p>Don't leave angry, leave with numbers. Take this snapshot before you move anything:</p>
+    <div class="grid">
+      <div class="cell"><b>What you invoice</b><span>Your real monthly volume.</span></div>
+      <div class="cell"><b>What they charge</b><span>The rate, ACH, audits — all of it.</span></div>
+      <div class="cell"><b>What they hold</b><span>The money parked in your reserve.</span></div>
+    </div>
+
+    <h2><span class="n">02</span> How to read your contract without being a lawyer</h2>
+    <p>Look for three things. The anniversary date rules: mark on your calendar the day your notice window opens.</p>
+    <div class="grid">
+      <div class="cell"><b>The term</b><span>How long the contract runs.</span></div>
+      <div class="cell"><b>Auto-renewal</b><span>Many renew on their own if you don't speak up.</span></div>
+      <div class="cell"><b>Anniversary date</b><span>The date that decides when you can leave.</span></div>
+    </div>
+
+    <h2><span class="n">03</span> How to give notice, properly</h2>
+    <p>Almost every contract asks for written notice, typically 30 to 60 days ahead. Do it in writing and keep a copy. Giving notice on time is the difference between a clean exit and getting locked in for another term.</p>
+    <div class="note"><b>Putting it in writing isn't distrust, it's your backup.</b> That way nobody changes the rules halfway through, and you have the dates to prove it.</div>
+
+    <h2><span class="n">04</span> What happens to your held reserve</h2>
+    <p>Your reserve is your money, just parked. When you leave, the factor releases it after collecting the invoices it already had in hand. Ask in writing for the date you get it back and how. Don't let it sit there.</p>
+  </div>
+
+  <div class="foot"><span><b>Movik</b></span><span>Educational only — not legal or financial advice.</span><span>movik.us</span></div>
+</section>
+
+<!-- ══════════ PAGE 2 ══════════ -->
+<section class="page">
+  <div class="content" style="margin-top:0">
+    <h2 style="margin-top:0"><span class="n">05</span> The "dead day": the real fear, and how it disappears</h2>
+    <p>The dead day is that gap between the last invoice your old factor pays and the first one you collect with the new one. That's what actually holds you back. The fix is to leave no gap: have your new provider start collecting your live invoices while the old one closes out its own.</p>
+
+    <h2><span class="n">06</span> How Movik keeps your cash flowing while you leave</h2>
+    <p>With Movik you don't wait to finish with the other one to start getting paid. Invoicing and collections come included, <strong>free</strong>, inside the system, so you keep invoicing and collecting without parking the truck to do paperwork.</p>
+    <p>And when you need the money sooner, you turn on the other leg: <strong>Pre-pickup financing</strong> pays your load from the rate confirmation, before you load. You choose invoice by invoice, you see every charge before you accept it, and there's no long contract tying you down. Your old contract winds down; your cash never stops.</p>
+
+    <h2><span class="n">07</span> Exit checklist — do it this week</h2>
+    <ul>
+      <li>Take the snapshot: invoicing, real charges, reserve.</li>
+      <li>Find your anniversary date and your notice window.</li>
+      <li>Send written notice, and keep a copy.</li>
+      <li>Confirm in writing the date your reserve comes back.</li>
+      <li>Start with Movik so you leave no dead day.</li>
+      <li>Keep a copy of everything.</li>
+    </ul>
+
+    <h2><span class="n">08</span> What's next</h2>
+    <p>Once your date is clear, message us on WhatsApp and we'll walk the transition with you so you don't lose a single day of cash. You can get into the operating system free right now, use invoicing and collections, and turn on Pre-pickup financing the day it helps you. No strings.</p>
+
+    <div class="cta">
+      <h3>Leave your factor with a plan, not blind.</h3>
+      <p>Message us and we'll walk the transition with you — no commitment, no fine print.</p>
+      <p class="wa">WhatsApp +1 (339) 212-1905</p>
+    </div>
+  </div>
+
+  <div class="foot"><span><b>Movik</b></span><span>Educational only — not legal or financial advice.</span><span>movik.us</span></div>
+</section>
+
+</body>
+</html>

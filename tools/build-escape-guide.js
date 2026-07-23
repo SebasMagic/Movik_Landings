@@ -47,8 +47,8 @@ const EN_HEAD = {
   imageAlt: 'Movik semi truck on the highway',
   ldName: 'Factoring Escape Guide',
   ldAlternate: 'Guia de Escape del Factoring',
-  ldDescription: 'A short playbook for carriers leaving a factoring contract: what the contract hides, the five myths that keep you stuck, a checklist to read it, the honest stay-vs-leave math, and how to switch without losing cash flow.',
-  ldPages: 5
+  ldDescription: 'A short guide for carriers leaving a factoring contract: how to read the contract, give notice on time, get your held reserve back, and switch without a single dead day.',
+  ldPages: 8
 };
 
 /** Set a <meta> content= by its name= or property= key. */
