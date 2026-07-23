@@ -86,6 +86,20 @@ JSON de traducción. Dos casos especiales: la escape guide trae su diccionario E
 dentro del propio archivo (build dedicado), y la home usa las URLs raíz `/` y `/es/`
 (build dedicado, `tools/build-home.js`).
 
+### El PDF inglés de la guía también se genera
+
+```
+escape-guide-landing/pdf-src/escape-guide-EN.html  ──►  uploads/Movik-Escape-Guide-EN.pdf
+```
+
+Se edita el HTML y se reexporta con Chrome headless (el comando está en el
+Pendiente 3). **No es un binario intocable: es texto que se puede corregir.** Por
+eso pesa 72 KB y no 1.5 MB, y por eso su contenido es seleccionable e indexable.
+
+El PDF español (`Movik-Guia-Escape-ES.pdf`, 1.4 MB) sí es la pieza diseñada
+original, sin fuente editable en el repo. Si hay que cambiarle texto, hay que ir
+al archivo de diseño.
+
 ### Comandos
 
 ```bash
