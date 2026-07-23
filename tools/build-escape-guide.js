@@ -39,8 +39,8 @@ const src = fs.readFileSync(SRC, 'utf8');
  * 8 sections, the English one is a 5-section playbook. numberOfPages follows.
  */
 const EN_HEAD = {
-  title: 'Factoring Escape Guide — Leave Your Factor Without Losing Cash Flow | Movik',
-  description: 'Free guide for carriers: how to leave your factoring contract without losing a single day of cash. Read the contract, do the math, switch clean. Sent on WhatsApp in 1 minute.',
+  title: 'Factoring Escape Guide — Leave Without Losing Cash | Movik',
+  description: 'Free guide for carriers: how to leave your factoring contract without losing a day of cash. Read it, do the math, switch clean.',
   ogTitle: 'How to Escape Your Factoring Contract — Free Guide | Movik',
   ogDescription: 'Read your contract. Do the math. Switch without losing a paycheck. Free guide, sent on WhatsApp.',
   twitterDescription: 'Read your contract. Do the math. Switch without losing a paycheck.',

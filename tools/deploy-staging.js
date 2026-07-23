@@ -42,7 +42,6 @@ function copyDir(from, to) {
  * protection in vercel.json.
  */
 const ROOT_FILES = [
-  ['site-root/index.html', 'index.html'],
   ['site-root/support.js', 'support.js'],
   ['site-root/logo movik favicon.png', 'logo movik favicon.png'],
   ['site-root/vercel.staging.json', 'vercel.json'],
@@ -54,6 +53,20 @@ for (const [from, to] of ROOT_FILES) {
   const src = path.join(ROOT, from);
   if (!fs.existsSync(src)) { console.error(`missing root file: ${from}`); process.exit(1); }
   fs.copyFileSync(src, path.join(DEPLOY, to));
+}
+
+// Homepage hub: built EN at /, built ES at /es/. Each needs the favicon beside it.
+const HOME = [
+  ['home-landing/dist/home-ENG.html', 'index.html'],
+  ['home-landing/dist/home-ESP.html', 'es/index.html']
+];
+for (const [from, to] of HOME) {
+  const src = path.join(ROOT, from);
+  if (!fs.existsSync(src)) { console.error(`missing home build: ${from} — run tools/build-home.js`); process.exit(1); }
+  const dest = path.join(DEPLOY, to);
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  fs.copyFileSync(src, dest);
+  fs.copyFileSync(path.join(ROOT, 'site-root/logo movik favicon.png'), path.join(path.dirname(dest), 'logo movik favicon.png'));
 }
 
 // sitemap.xml and llms.txt stay OUT of staging on purpose — the site is noindex

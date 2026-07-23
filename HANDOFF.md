@@ -34,14 +34,15 @@ final es `movik.us`.
 
 | Ruta | Idioma | Estado |
 |---|---|---|
-| `/carriers/` | EN | al día |
-| `/es/carriers/` | ES | al día |
-| `/brokers/` | EN | al día |
-| `/es/brokers/` | ES | al día |
-| `/escape-guide/` | EN | al día |
-| `/es/escape-guide/` | ES | al día |
-| `/factoring-calculator/` | EN | **desactualizado — ver Pendiente 1** |
-| `/` (home) | EN | duplica `/carriers/` — ver Pendiente 4 |
+| `/` y `/es/` (home hub) | EN + ES | al día |
+| `/carriers/` · `/es/carriers/` | EN + ES | al día |
+| `/brokers/` · `/es/brokers/` | EN + ES | al día |
+| `/escape-guide/` · `/es/escape-guide/` | EN + ES | al día |
+| `/factoring-calculator/` · `/es/factoring-calculator/` | EN + ES | al día |
+
+Las 10 páginas pasan `tools/audit.js` con **0 errores y 0 advertencias**:
+title/description dentro de límite, hreflang recíproco, un H1 por página,
+sin títulos ni descripciones duplicadas, JSON-LD válido.
 
 Redirects permanentes (308) de `/broker` → `/brokers/` y `/calculator` →
 `/factoring-calculator/`, para no romper links viejos.
@@ -67,25 +68,38 @@ escape-guide-landing/index.html┘
   (trae su diccionario adentro) ─►  escape-guide-landing/dist/─►  deploy/…/escape-guide/index.html
                                       escape-guide-ENG.html        deploy/…/es/escape-guide/index.html
                                       escape-guide-ESP.html
+
+home-landing/index.html       ─┐
+i18n/home.es.json              ├─►  home-landing/dist/        ─►  deploy/…/index.html   (raíz, EN)
+                               │      home-ENG.html               deploy/…/es/index.html (ES)
+                               │      home-ESP.html
+calculator-landing/index.html ─┐
+i18n/calculator.es.json + calc.js ─► calculator-landing/dist/ ─► deploy/…/factoring-calculator/…
 ```
 
 **La fuente en inglés es el `index.html` de cada carpeta.** El español sale de su
-JSON de traducción. La escape guide es distinta: trae su diccionario ES/EN dentro
-del propio archivo.
+JSON de traducción. Dos casos especiales: la escape guide trae su diccionario ES/EN
+dentro del propio archivo (build dedicado), y la home usa las URLs raíz `/` y `/es/`
+(build dedicado, `tools/build-home.js`).
 
 ### Comandos
 
 ```bash
 node tools/i18n.js check                     # ¿falta alguna frase por traducir?
 node tools/i18n.js extract <archivo.html>    # lista las frases traducibles
-node tools/i18n.js build [pagina]            # genera ENG + ESP en dist/
+node tools/i18n.js build [pagina]            # genera ENG + ESP en dist/ (carriers, brokers, calculator)
 node tools/build-escape-guide.js             # genera las dos guías
+node tools/build-home.js                     # genera la home hub (EN + ES)
 node tools/deploy-staging.js                 # arma deploy/movik-landing/
+node tools/audit.js                          # auditoría SEO/estructura (0 errores = listo)
 cd deploy/movik-landing && vercel deploy --prod --yes
 ```
 
+**Orden de un rebuild completo:** los tres `build*` → `deploy-staging` → `audit`.
+
 `check` es la red de seguridad: falla si quedó texto sin traducir. Correrlo antes
-de cada build. Hoy: carriers 89/89, brokers 79/79, **calculator 0/60**.
+de cada build. Hoy: carriers 89/89, brokers 79/79, calculator 60/60, y `audit.js`
+pasa con 0 errores / 0 advertencias.
 
 ### Por qué los archivos se despliegan como `index.html`
 
@@ -98,35 +112,7 @@ peor para SEO.
 
 ## 3. Pendientes, por prioridad
 
-### 1. Desplegar la calculadora nueva y traducirla
-
-La versión nueva (con `calc.js`, barras comparativas y captura de email) **ya está
-lista en `deploy/movik-landing/factoring-calculator/` pero nunca se desplegó.**
-
-En producción hay hoy una mezcla: el `<head>` nuevo (el `<title>` promete
-"Savings Calculator") sobre el **body viejo**. La página funciona — el body viejo
-es autocontenido — pero su metadata promete algo que la página todavía no hace.
-
-Esto pasó porque, mientras la rama estaba en curso, se portó solo el `<head>`
-para no publicar trabajo a medias. Ahora que está lista, hay que desplegarla
-completa.
-
-```bash
-cd deploy/movik-landing && vercel deploy --prod --yes   # verificar que calc.js suba (hoy da 404 en vivo)
-```
-
-Y falta su español, que es **el único idioma que falta en todo el sitio**:
-
-```bash
-node tools/i18n.js extract calculator-landing/index.html   # imprime las 60 frases
-# llenar i18n/calculator.es.json con ese contenido
-node tools/i18n.js check calculator                        # debe dar 60/60
-```
-
-Después hay que agregar `calculator` al array `PAGES` de `tools/deploy-staging.js`
-(su entrada ya existe en `tools/i18n.js`, con slug `factoring-calculator`).
-
-### 2. Los leads de la escape guide no se guardan
+### 1. Los leads de la escape guide no se guardan
 
 En `escape-guide-landing/index.html`, la constante `LEAD_WEBHOOK` está vacía. El
 formulario valida, abre WhatsApp y entrega el PDF, pero **el nombre y el teléfono
@@ -137,26 +123,14 @@ Pegar una URL de Zapier/Make/n8n en esa constante y volver a construir. El paylo
 ya va armado con `source: 'magnet_escape_guide'`, idioma, y la fecha de fin de
 contrato (que es la que sirve para reactivar a 60 días).
 
-### 3. Nadie ha visto la escape guide renderizada
+### 2. Nadie ha visto las páginas renderizadas en un navegador
 
-Se verificó por HTTP y por estructura, pero **no visualmente en un navegador**.
-Revisar sobre todo la línea punteada que conecta los 3 pasos: está posicionada con
-`calc()` sobre el grid y es lo más probable que necesite ajuste según el ancho.
+Todo se verificó por HTTP, estructura y auditoría automática, pero **no
+visualmente**. Revisar sobre todo: la línea punteada que conecta los 3 pasos de la
+escape guide (`calc()` sobre el grid, puede necesitar ajuste), y la nueva home hub
+en móvil.
 
-### 4. La home duplica a `/carriers/`
-
-`/` es un 99% copia de `/carriers/`: mismo H1, mismas secciones, 530 vs 544
-palabras. Además **no enlaza a ninguna landing** (solo anclas internas y un
-`href="#"` vacío) y no tiene ni un tag de SEO.
-
-Mientras todo esté en `noindex` no hace daño. En `movik.us` sí: dos URLs casi
-idénticas compiten entre sí, y una home que no reparte autoridad a sus hijas
-desperdicia la página que más autoridad acumula.
-
-Dos salidas: convertirla en un hub real que presente Movik y enlace a las cuatro
-páginas (lo recomendable), o ponerle canonical hacia `/carriers/`.
-
-### 5. El PDF en inglés choca con la regla de compliance
+### 3. El PDF en inglés choca con la regla de compliance
 
 Los dos PDFs de la guía **no son traducciones, son documentos distintos**:
 
@@ -168,10 +142,17 @@ Los dos PDFs de la guía **no son traducciones, son documentos distintos**:
 | Menciona UCC | no | **sí, 4 veces** |
 
 El brief de copy pedía explícitamente cero menciones de UCC y ningún porcentaje de
-fee. El PDF español cumple; el inglés trae UCC y porcentajes de ejemplo (`3% per
-30 days`, `4.5% effective rate`). La landing ya describe correctamente a cada uno
-por separado, pero **el documento inglés necesita una revisión de compliance**
-antes de mandarle tráfico.
+fee. El PDF español cumple; el inglés trae UCC (5 veces) y porcentajes de ejemplo
+(`3%`, `2.5%`, `4.5%`). La landing ya describe correctamente a cada uno por
+separado, pero **el documento inglés necesita una revisión de compliance** antes
+de mandarle tráfico.
+
+**Nota (2026-07-22):** el cliente reexportó `carriers-landing/Escape Guide.pdf`,
+pero el texto es **idéntico** al desplegado — las menciones de UCC y los
+porcentajes siguen ahí. Cambió a nivel binario (imágenes), no el contenido. Si la
+intención era quitar el UCC, ese cambio no quedó en el archivo. El PDF que sirve la
+web sigue siendo el mismo; no lo reemplacé porque no aportaba nada nuevo y mantenía
+el problema de compliance.
 
 ---
 
@@ -231,7 +212,7 @@ Está también en `deploy/movik-landing/STAGING-README.txt`.
 3. Copiar `site-root/sitemap.xml` y `site-root/llms.txt` a la raíz del deploy.
 4. Verificar que los canonical, `og:url` y los `url` del JSON-LD apunten a
    `movik.us` (ya deberían).
-5. Resolver la home duplicada (Pendiente 4).
+5. Correr `node tools/audit.js` — debe dar 0 errores.
 6. Dar de alta el sitemap en Google Search Console.
 
 **Orden importa:** no quitar el `noindex` antes de que las páginas existan en
