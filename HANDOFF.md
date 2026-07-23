@@ -1,29 +1,33 @@
 # Handoff — Landings Movik
 
-Última actualización: 2026-07-21
+Última actualización: 2026-07-23
 
 Este documento es para quien va a continuar el trabajo. Explica qué está montado,
 cómo se genera, qué falta y qué decisiones **no** hay que deshacer.
 
 ---
 
-## ⚠️ LO PRIMERO: nada de esto está en git
+## Repositorio
 
-Todo el trabajo descrito aquí está **sin commitear**. Si alguien clona el repo, no
-existe. Antes de cualquier otra cosa:
+**https://github.com/SebasMagic/Movik_Landings** (público)
 
+Todo está commiteado y pusheado en `master`. La rama `calculator-savings-swap`
+ya se mergeó por fast-forward; no queda trabajo suelto.
+
+```bash
+git clone https://github.com/SebasMagic/Movik_Landings.git
+cd Movik_Landings
+node tools/i18n.js check   # debe pasar sin faltantes
+node tools/audit.js        # debe dar 0 errores
 ```
-Sin trackear:  escape-guide-landing/   i18n/   tools/
-               carriers-landing/dist/  broker-landing/dist/
-Modificados:   carriers-landing/index.html   broker-landing/index.html
-               site-root/robots.txt          site-root/sitemap.xml
-```
 
-Además hay **16 commits en la rama `calculator-savings-swap` sin mergear a
-`master`**. `master` sigue en `d0273cd`, que es anterior a toda la calculadora
-nueva.
+`deploy/` y los `dist/` están en `.gitignore` a propósito: son salida generada.
+Se reconstruyen con los comandos de la sección 2, así que un clon limpio los
+regenera completos, incluida la protección `noindex`.
 
-**Acción:** commitear lo pendiente y decidir el merge de esa rama antes de seguir.
+> El repo pesa ~200 MB porque arrastra 12 videos `.mp4` de commits antiguos. El
+> `.gitignore` ya impide que se agreguen más copias sueltas. Si se quiere un repo
+> liviano hay que reescribir la historia con `git filter-repo` y forzar el push.
 
 ---
 
