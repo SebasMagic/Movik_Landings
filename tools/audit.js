@@ -109,6 +109,29 @@ for (const [url, file] of PAGES) {
   console.log(`${mark(!jump)} ${url.padEnd(28)} h1-6: [${counts.join(' ')}]${jump ? '  ' + warn + ' jump ' + jump : ''}`);
 }
 
+// every local asset a page references must exist in the deploy output.
+// Catches absolute movik.us URLs used for images that must resolve on staging too.
+console.log(`${R.bold}\n═══ LOCAL ASSETS ═══${R.reset}\n`);
+for (const [url, file] of PAGES) {
+  const full = path.join(DEPLOY, file);
+  if (!fs.existsSync(full)) continue;
+  const html = fs.readFileSync(full, 'utf8');
+  const dir = path.dirname(full);
+  const refs = new Set();
+  for (const m of html.matchAll(/(?:href|src)="(?!https?:|#|mailto:|tel:|data:)([^"]+)"/g)) refs.add(m[1]);
+  for (const m of html.matchAll(/url\('([^']+)'\)/g)) if (!/^(data:|https?:)/.test(m[1])) refs.add(m[1]);
+
+  const missing = [...refs].filter(r => {
+    const rel = decodeURIComponent(r.replace(/^\.\//, '').split(/[?#]/)[0]);
+    if (!rel) return false;
+    // page-to-page links resolve to a directory's index.html
+    const base = rel.startsWith('/') ? path.join(DEPLOY, rel) : path.join(dir, rel);
+    return !(fs.existsSync(base) || fs.existsSync(path.join(base, 'index.html')));
+  });
+  for (const m of missing) flag(url, 'ERR', `broken local reference: ${m}`);
+  console.log(`${mark(!missing.length)} ${url.padEnd(28)} ${refs.size} refs${missing.length ? '  ' + warn + ' ' + missing.join(', ') : ''}`);
+}
+
 // summary
 console.log(`${R.bold}\n═══ ISSUES ═══${R.reset}\n`);
 const errs = issues.filter(i => i.sev === 'ERR'), warns = issues.filter(i => i.sev === 'WARN');

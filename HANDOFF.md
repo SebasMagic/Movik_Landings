@@ -96,9 +96,17 @@ Se edita el HTML y se reexporta con Chrome headless (el comando está en el
 Pendiente 3). **No es un binario intocable: es texto que se puede corregir.** Por
 eso pesa 72 KB y no 1.5 MB, y por eso su contenido es seleccionable e indexable.
 
-El PDF español (`Movik-Guia-Escape-ES.pdf`, 1.4 MB) sí es la pieza diseñada
-original, sin fuente editable en el repo. Si hay que cambiarle texto, hay que ir
-al archivo de diseño.
+`escape-guide-landing/pdf-src/` guarda los cuatro archivos y sus roles:
+
+| Archivo | Qué es |
+|---|---|
+| `escape-guide-EN.html` | fuente editable del PDF inglés |
+| `escape-guide-EN.pdf` | export de esa fuente (el que sirve la web) |
+| `escape-guide-ES-designed.pdf` | pieza diseñada española, **sin fuente editable** |
+| `escape-guide-EN-original-superseded.pdf` | inglés original, reemplazado por incumplir compliance (UCC) |
+
+El español que sirve la web es una copia de `escape-guide-ES-designed.pdf`. Si hay
+que cambiarle texto hay que ir al archivo de diseño, no existe fuente en el repo.
 
 ### Comandos
 
