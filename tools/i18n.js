@@ -154,6 +154,29 @@ if (cmd === 'extract') {
   console.log('usage: node tools/i18n.js extract <file> | build [page] | check [page]');
 }
 
+/**
+ * EN/ES switcher for the nav. Injected at the <!--LANG-TOGGLE--> marker AFTER
+ * translation, so its "EN"/"ES" labels never reach the string extractor and
+ * never need a dictionary entry. Real links, not a JS swap: each language is
+ * its own indexable URL.
+ */
+function langToggle(slug, active) {
+  const item = (code, href) => {
+    const on = code === active;
+    return `<a href="${href}" hreflang="${code}"${on ? ' aria-current="true"' : ''} ` +
+      `style="font-size:12px;font-weight:700;letter-spacing:.06em;padding:5px 10px;border-radius:6px;` +
+      `text-decoration:none;background:${on ? '#8236FC' : 'transparent'};` +
+      `color:${on ? '#fff' : 'rgba(255,255,255,.5)'};">${code.toUpperCase()}</a>`;
+  };
+  return '<div style="display:flex;gap:2px;padding:3px;border-radius:9px;' +
+    'border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);">' +
+    item('en', `/${slug}/`) + item('es', `/es/${slug}/`) + '</div>';
+}
+
+function injectToggle(html, slug, active) {
+  return html.replace('<!--LANG-TOGGLE-->', langToggle(slug, active));
+}
+
 /** The reciprocal hreflang trio for a slug — identical on both language pages. */
 function hreflangBlock(slug) {
   const en = `https://movik.us/${slug}/`;
@@ -170,19 +193,19 @@ function injectHreflang(html, slug) {
   return html.replace(/<link rel="canonical"[^>]*>/, m => `${m}\n${hreflangBlock(slug).trimEnd()}`);
 }
 
-/** English page: source markup + reciprocal hreflang. */
+/** English page: source markup + reciprocal hreflang + toggle set to EN. */
 function withHreflang(html, slug) {
-  return injectHreflang(html, slug);
+  return injectToggle(injectHreflang(html, slug), slug, 'en');
 }
 
-/** Spanish page: lang attr, canonical/og:url under /es/, plus the hreflang trio. */
+/** Spanish page: lang attr, canonical/og:url under /es/, hreflang, toggle on ES. */
 function localize(html, slug) {
   const en = `https://movik.us/${slug}/`;
   const es = `https://movik.us/es/${slug}/`;
   const s = html
     .replace(/<html lang="[^"]*">/, '<html lang="es">')
     .split(en).join(es);
-  return injectHreflang(s, slug);
+  return injectToggle(injectHreflang(s, slug), slug, 'es');
 }
 
 module.exports = { findStrings, translate };

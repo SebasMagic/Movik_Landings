@@ -184,10 +184,13 @@
 <!-- NAV -->
 <nav id="main-nav" style="position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;">
   <img src="https://movik.us/movik_white.avif" alt="Movik" style="height:25px;">
+  <div style="display:flex;align-items:center;gap:14px;">
+  <!--LANG-TOGGLE-->
   <a href="https://wa.me/13392121905" target="_blank" style="display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 20px;background:#8236FC;color:#fff;font-size:13px;font-weight:700;text-decoration:none;border-radius:8px;transition:background 150ms,transform 150ms,box-shadow 150ms;" onmouseover="this.style.background='oklch(0.43 0.27 286)';this.style.transform='translateY(-1px)';this.style.boxShadow='0 8px 24px rgba(130,54,252,.5)'" onmouseout="this.style.background='#8236FC';this.style.transform='none';this.style.boxShadow='none'">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     Talk on WhatsApp
   </a>
+  </div>
 </nav>
 
 <!-- HERO + CALCULATOR unified full-screen section -->
@@ -209,7 +212,7 @@
     </div>
 
     <h1 class="hero-h1-calc" style="font-size:42px;font-weight:800;color:#fff;line-height:.98;letter-spacing:-.04em;margin-bottom:12px;animation:fadeUp .72s .1s ease both;animation-fill-mode:both;">
-      You make $10K and you don't keep $10K.<br><em style="color:#C4A8FF;font-style:italic;">Know where it goes?</em>
+      How much does your factor take every week?<br><em style="color:#C4A8FF;font-style:italic;">See it in 30 seconds.</em>
     <!-- Two lines by design: the <br> is the only break, so the container is
          sized to fit the first line whole at every desktop step. -->
     </h1>
@@ -230,14 +233,7 @@
       <div class="calc-split">
       <div>
 
-      <div class="grid-2 seg-row" style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:15px;">
-        <div>
-          <span class="calc-label">Billing period</span>
-          <div class="seg" role="group" aria-label="Billing period">
-            <button type="button" class="seg-btn is-active" id="seg-monthly" aria-pressed="true">Monthly</button>
-            <button type="button" class="seg-btn" id="seg-annual" aria-pressed="false">Annual</button>
-          </div>
-        </div>
+      <div class="grid-2 seg-row" style="display:grid;grid-template-columns:1fr;gap:13px;margin-bottom:15px;">
         <div>
           <span class="calc-label">Do you factor today?</span>
           <div class="seg" role="group" aria-label="Do you factor today?">
@@ -249,7 +245,7 @@
 
       <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px;">
         <div>
-          <label class="calc-label" for="invoice-volume">Your invoice volume</label>
+          <label class="calc-label" for="invoice-volume">Your monthly invoice volume</label>
           <div class="calc-input-wrap">
             <span class="calc-prefix">$</span>
             <input class="calc-input with-prefix" type="text" inputmode="numeric" id="invoice-volume" placeholder="100,000" maxlength="15" autocomplete="off">
@@ -555,10 +551,6 @@ class Component extends DCLogic {
     function render() {
       var r = C.computeSavings({ amount: state.amount, period: state.period, pct: state.pct });
 
-      $('seg-monthly').classList.toggle('is-active', state.period === 'monthly');
-      $('seg-monthly').setAttribute('aria-pressed', state.period === 'monthly' ? 'true' : 'false');
-      $('seg-annual').classList.toggle('is-active', state.period === 'annual');
-      $('seg-annual').setAttribute('aria-pressed', state.period === 'annual' ? 'true' : 'false');
       $('seg-yes').classList.toggle('is-active', state.hasFactor);
       $('seg-yes').setAttribute('aria-pressed', state.hasFactor ? 'true' : 'false');
       $('seg-no').classList.toggle('is-active', !state.hasFactor);
@@ -641,8 +633,8 @@ class Component extends DCLogic {
 
     buildTicks();
 
-    $('seg-monthly').addEventListener('click', function () { state.period = 'monthly'; render(); });
-    $('seg-annual').addEventListener('click', function () { state.period = 'annual'; render(); });
+    // Billing period control removed — volume is always monthly. state.period
+    // stays 'monthly' so computeSavings keeps its documented contract.
     $('seg-yes').addEventListener('click', function () { state.hasFactor = true; render(); });
     $('seg-no').addEventListener('click', function () { state.hasFactor = false; render(); });
 
